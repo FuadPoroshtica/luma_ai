@@ -56,13 +56,11 @@ class MainActivity : AppCompatActivity() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        // Dynamic start destination: if the user enabled the kiosk screen, that
-        // becomes the first surface; otherwise we land on home like before.
-        if (prefs.kioskScreenEnabled) {
+        // The nav graph's XML startDestination is kioskFragment. If the user
+        // has the kiosk disabled, jump straight to home instead.
+        if (!prefs.kioskScreenEnabled && navController.currentDestination?.id == R.id.kioskFragment) {
             try {
-                val graph = navController.navInflater.inflate(R.navigation.nav_graph)
-                graph.setStartDestination(R.id.kioskFragment)
-                navController.graph = graph
+                navController.navigate(R.id.mainFragment)
             } catch (_: Exception) {
             }
         }

@@ -36,7 +36,7 @@
             android:fontFamily="@font/public_sans"
             android:gravity="top|start"
             android:hint="@string/ai_prompt_hint"
-            android:inputType="textMultiLine|textCapSentences"
+            android:inputType="text|textCapSentences|textAutoCorrect"
             android:minLines="3"
             android:maxLines="8"
             android:paddingVertical="12dp"
@@ -44,7 +44,7 @@
             android:textColorHint="?attr/primaryColorTrans80"
             android:textCursorDrawable="@null"
             android:textSize="22sp"
-            android:imeOptions="actionSend"
+            android:imeOptions="actionSend|flagNoExtractUi"
             tools:ignore="Autofill,LabelFor" />
 
         <View

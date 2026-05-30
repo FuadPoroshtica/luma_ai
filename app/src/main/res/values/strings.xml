@@ -193,6 +193,6 @@
 
     <!-- Kiosk first screen -->
     <string name="kiosk_ask_ai">Ask Claw</string>
-    <string name="kiosk_tap_to_open">Tap to open</string>
+    <string name="kiosk_tap_to_open">Tap here to open</string>
     <string name="settings_kiosk_enabled">Lock-style first screen</string>
 </resources>

@@ -1,7 +1,11 @@
 package app.lightai.ui
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.view.GestureDetector
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -44,8 +48,9 @@ class KioskFragment : Fragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Background tap → reveal home
-        binding.kioskRoot.setOnClickListener {
+        // "Tap to open" hint → reveal home (only explicit trigger to avoid
+        // catching taps meant for Ask Claw)
+        binding.kioskHint.setOnClickListener {
             navigateHome()
         }
         // Ask AI tile tap → open prompt overlay
@@ -82,8 +87,42 @@ class KioskFragment : Fragment() {
         _binding = null
     }
 
+    private class SwipeUpListener(
+        context: Context,
+        private val onSwipeUp: () -> Unit,
+    ) : View.OnTouchListener {
+        private val detector =
+            GestureDetector(
+                context,
+                object : GestureDetector.SimpleOnGestureListener() {
+                    override fun onFling(
+                        e1: MotionEvent?,
+                        e2: MotionEvent,
+                        velocityX: Float,
+                        velocityY: Float,
+                    ): Boolean {
+                        if (e1 == null) return false
+                        val dy = e2.y - e1.y
+                        if (dy < -SWIPE_THRESHOLD_PX && -velocityY > SWIPE_VELOCITY_PX_S) {
+                            onSwipeUp()
+                            return true
+                        }
+                        return false
+                    }
+                },
+            )
+
+        @SuppressLint("ClickableViewAccessibility")
+        override fun onTouch(
+            v: View,
+            event: MotionEvent,
+        ): Boolean = detector.onTouchEvent(event)
+    }
+
     companion object {
         private const val TICK_MS = 30_000L
+        private const val SWIPE_THRESHOLD_PX = 100f
+        private const val SWIPE_VELOCITY_PX_S = 100f
         private val TIME_FMT = SimpleDateFormat("HH:mm", Locale.getDefault())
         private val DATE_FMT = SimpleDateFormat("EEE, d MMM", Locale.getDefault())
     }
