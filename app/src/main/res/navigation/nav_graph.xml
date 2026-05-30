@@ -114,6 +114,34 @@
         <action
             android:id="@+id/action_settingsFragment_to_hapticsFragment"
             app:destination="@id/hapticsFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_hardwareKeysFragment"
+            app:destination="@id/hardwareKeysFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hardwareKeysFragment"
+        android:name="app.lightai.ui.HardwareKeysFragment"
+        android:label="HardwareKeysFragment">
+        <action
+            android:id="@+id/action_hardwareKeysFragment_to_hardwareKeyDetailFragment"
+            app:destination="@id/hardwareKeyDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hardwareKeyDetailFragment"
+        android:name="app.lightai.ui.HardwareKeyDetailFragment"
+        android:label="HardwareKeyDetailFragment">
+        <argument
+            android:name="keyOrdinal"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/aiPromptOverlayFragment"
+        android:name="app.lightai.ui.AiPromptOverlayFragment"
+        android:label="AiPromptOverlayFragment">
+        <argument
+            android:name="mode"
+            app:argType="string"
+            android:defaultValue="text" />
     </fragment>
     <fragment
         android:id="@+id/themeModeFragment"

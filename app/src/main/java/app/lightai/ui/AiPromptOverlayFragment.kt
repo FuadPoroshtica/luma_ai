@@ -1,0 +1,189 @@
+package app.lightai.ui
+
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.speech.RecognizerIntent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import app.lightai.R
+import app.lightai.databinding.FragmentAiPromptBinding
+
+class AiPromptOverlayFragment : Fragment() {
+    private var _binding: FragmentAiPromptBinding? = null
+    private val binding get() = _binding!!
+
+    private val mode: String by lazy { arguments?.getString(ARG_MODE) ?: MODE_TEXT }
+
+    private val voiceLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val matches = result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                matches?.firstOrNull()?.let { transcript ->
+                    _binding?.aiPromptInput?.apply {
+                        setText(transcript)
+                        setSelection(text?.length ?: 0)
+                        requestFocus()
+                    }
+                }
+            }
+        }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        _binding = FragmentAiPromptBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.aiPromptInput.apply {
+            requestFocus()
+            setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    submit()
+                    true
+                } else {
+                    false
+                }
+            }
+        }
+
+        binding.aiPromptSendButton.setOnClickListener { submit() }
+        binding.aiPromptVoiceButton.setOnClickListener { launchVoice() }
+        binding.aiPromptCancelButton.setOnClickListener { dismiss() }
+
+        // Tapping outside the card dismisses the overlay.
+        binding.aiPromptOverlayRoot.setOnClickListener { dismiss() }
+        // Prevent root click from firing when the card itself is touched.
+        binding.aiPromptCard.setOnClickListener { /* swallow */ }
+
+        showKeyboard()
+
+        if (savedInstanceState == null && mode == MODE_VOICE) {
+            launchVoice()
+        }
+    }
+
+    override fun onDestroyView() {
+        hideKeyboard()
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun submit() {
+        val prompt = binding.aiPromptInput.text?.toString()?.trim().orEmpty()
+        if (prompt.isEmpty()) return
+
+        val context = requireContext()
+        val dispatched = sendToClaude(context, prompt) || sendToAssistant(context, prompt)
+
+        if (dispatched) {
+            hideKeyboard()
+            findNavController().popBackStack()
+        } else {
+            Toast.makeText(context, R.string.ai_prompt_no_target, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun sendToClaude(
+        context: Context,
+        prompt: String,
+    ): Boolean {
+        val intent =
+            Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                setPackage(CLAUDE_PACKAGE)
+                putExtra(Intent.EXTRA_TEXT, prompt)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+        return try {
+            context.startActivity(intent)
+            true
+        } catch (_: ActivityNotFoundException) {
+            false
+        }
+    }
+
+    private fun sendToAssistant(
+        context: Context,
+        prompt: String,
+    ): Boolean {
+        val hintBundle =
+            Bundle().apply {
+                putString(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                putString("android.intent.extra.ASSIST_INPUT_HINT_KEYBOARD", prompt)
+            }
+        val intent =
+            Intent(Intent.ACTION_ASSIST).apply {
+                putExtra(Intent.EXTRA_TEXT, prompt)
+                putExtra("android.intent.extra.ASSIST_INPUT_HINT_KEYBOARD", prompt)
+                putExtra(Intent.EXTRA_ASSIST_CONTEXT, hintBundle)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+        return try {
+            context.startActivity(intent)
+            true
+        } catch (_: ActivityNotFoundException) {
+            false
+        }
+    }
+
+    private fun launchVoice() {
+        val intent =
+            Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.ai_prompt_voice_hint))
+            }
+        try {
+            voiceLauncher.launch(intent)
+        } catch (_: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), R.string.ai_prompt_voice_hint, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun dismiss() {
+        hideKeyboard()
+        findNavController().popBackStack()
+    }
+
+    private fun showKeyboard() {
+        val context = context ?: return
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        binding.aiPromptInput.post {
+            val view = _binding?.aiPromptInput ?: return@post
+            view.requestFocus()
+            imm?.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+        }
+    }
+
+    private fun hideKeyboard() {
+        val context = context ?: return
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        val token = view?.windowToken ?: return
+        imm?.hideSoftInputFromWindow(token, 0)
+    }
+
+    companion object {
+        const val ARG_MODE = "mode"
+        const val MODE_TEXT = "text"
+        const val MODE_VOICE = "voice"
+        private const val CLAUDE_PACKAGE = "com.anthropic.claude"
+    }
+}

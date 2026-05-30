@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Placeholder layout for HardwareKeyDetailFragment. The fragment is Compose-based
+    (see HardwareKeyDetailFragment.kt, which uses Fragment.composeView() to build
+    its view tree). This file exists to mirror the layout naming convention used
+    by other settings screens; no view is inflated from it at runtime.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />

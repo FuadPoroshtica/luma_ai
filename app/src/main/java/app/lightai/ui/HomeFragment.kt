@@ -41,6 +41,8 @@ import app.lightai.data.AppModel
 import app.lightai.data.Constants.Action
 import app.lightai.data.Constants.AppDrawerFlag
 import app.lightai.data.GestureType
+import app.lightai.data.HardwareKey
+import app.lightai.data.HardwareKeyPress
 import app.lightai.data.HomeLayout
 import app.lightai.data.Prefs
 import app.lightai.data.StatusBarSectionType
@@ -69,6 +71,7 @@ class HomeFragment :
     private var telephonyCallback: TelephonyCallback? = null
     private var wifiNetworkCallback: ConnectivityManager.NetworkCallback? = null
     private var clockJob: Job? = null
+    private var hardwareKeyJob: Job? = null
     private var notificationDotView: TextView? = null
 
     private var _binding: FragmentHomeBinding? = null
@@ -124,6 +127,7 @@ class HomeFragment :
         startBatteryMonitor()
         startConnectivityMonitors()
         startClock()
+        startHardwareKeyListener()
     }
 
     override fun onPause() {
@@ -132,6 +136,46 @@ class HomeFragment :
         stopClock()
         stopBatteryMonitor()
         stopConnectivityMonitors()
+        stopHardwareKeyListener()
+    }
+
+    private fun startHardwareKeyListener() {
+        hardwareKeyJob?.cancel()
+        hardwareKeyJob =
+            lifecycleScope.launch {
+                HardwareKeyBus.events.collect { event ->
+                    handleHardwareKey(event.key, event.press)
+                }
+            }
+    }
+
+    private fun stopHardwareKeyListener() {
+        hardwareKeyJob?.cancel()
+        hardwareKeyJob = null
+    }
+
+    private fun handleHardwareKey(
+        key: HardwareKey,
+        press: HardwareKeyPress,
+    ) {
+        val action = prefs.getHardwareAction(key, press)
+        if (action == Action.Disabled) return
+        performGestureActionHaptic()
+        if (action == Action.OpenApp) {
+            openHardwareApp(key, press)
+        } else {
+            handleOtherAction(action)
+        }
+    }
+
+    private fun openHardwareApp(
+        key: HardwareKey,
+        press: HardwareKeyPress,
+    ) {
+        val app = prefs.getHardwareApp(key, press)
+        if (app.appPackage.isNotEmpty()) {
+            launchApp(app)
+        }
     }
 
     override fun onClick(view: View) {
@@ -889,7 +933,20 @@ class HomeFragment :
 
             Action.BrightnessDown -> adjustBrightness(-0.1f)
 
+            Action.OpenAiPrompt -> navigateAiPrompt(voiceFirst = false)
+
+            Action.OpenAiVoice -> navigateAiPrompt(voiceFirst = true)
+
             Action.OpenApp, Action.Disabled -> {}
+        }
+    }
+
+    private fun navigateAiPrompt(voiceFirst: Boolean) {
+        try {
+            val args = android.os.Bundle().apply { putString("mode", if (voiceFirst) "voice" else "text") }
+            findNavController().navigate(R.id.aiPromptOverlayFragment, args)
+        } catch (_: Exception) {
+            // Fragment not yet wired in nav_graph; fail silently for now
         }
     }
 
@@ -996,12 +1053,18 @@ class HomeFragment :
 
     private fun updateAppCountForPage(appsCount: Int) {
         val currentAppCount = binding.homeAppsLayout.childCount
+        val scale = if (prefs.largeButtonMode) LARGE_BUTTON_SCALE else 1.0f
+        val baseTextSize = 41f
+        val basePadV = resources.getDimensionPixelSize(R.dimen.home_app_padding_vertical)
+        val scaledTextSize = baseTextSize * scale
+        val scaledPadV = (basePadV * scale).toInt()
 
         if (currentAppCount < appsCount) {
             for (i in currentAppCount until appsCount) {
                 val view = layoutInflater.inflate(R.layout.home_app_button, null) as TextView
                 view.apply {
-                    textSize = 41f
+                    textSize = scaledTextSize
+                    setPadding(paddingLeft, scaledPadV, paddingRight, scaledPadV)
                     setOnTouchListener(
                         createGestureListener(
                             view = this,
@@ -1020,6 +1083,18 @@ class HomeFragment :
         } else if (currentAppCount > appsCount) {
             binding.homeAppsLayout.removeViews(appsCount, currentAppCount - appsCount)
         }
+
+        // Re-apply scale to existing views (toggle path)
+        for (i in 0 until binding.homeAppsLayout.childCount) {
+            (binding.homeAppsLayout.getChildAt(i) as? TextView)?.apply {
+                textSize = scaledTextSize
+                setPadding(paddingLeft, scaledPadV, paddingRight, scaledPadV)
+            }
+        }
+    }
+
+    companion object {
+        private const val LARGE_BUTTON_SCALE = 1.75f
     }
 
     private fun getAppDisplayName(appModel: AppModel): String {

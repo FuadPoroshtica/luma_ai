@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/aiPromptOverlayRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/primaryShadeDarkColor"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".ui.AiPromptOverlayFragment">
+
+    <LinearLayout
+        android:id="@+id/aiPromptCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="24dp">
+
+        <TextView
+            android:id="@+id/aiPromptTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/public_sans"
+            android:text="@string/action_open_ai_prompt"
+            android:textColor="?attr/primaryColor"
+            android:textSize="18sp"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/aiPromptInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:fontFamily="@font/public_sans"
+            android:gravity="top|start"
+            android:hint="@string/ai_prompt_hint"
+            android:inputType="textMultiLine|textCapSentences"
+            android:minLines="3"
+            android:maxLines="8"
+            android:paddingVertical="12dp"
+            android:textColor="?attr/primaryColor"
+            android:textColorHint="?attr/primaryColorTrans80"
+            android:textCursorDrawable="@null"
+            android:textSize="22sp"
+            android:imeOptions="actionSend"
+            tools:ignore="Autofill,LabelFor" />
+
+        <View
+            android:id="@+id/aiPromptDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:background="?attr/primaryColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/aiPromptVoiceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:fontFamily="@font/public_sans"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:text="@string/ai_prompt_voice"
+                android:textColor="?attr/primaryColor"
+                android:textSize="20sp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/aiPromptCancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:fontFamily="@font/public_sans"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:text="@string/app_drawer_cancel"
+                android:textColor="?attr/primaryColor"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/aiPromptSendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:fontFamily="@font/public_sans"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:text="@string/ai_prompt_send"
+                android:textColor="?attr/primaryColor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -466,6 +466,32 @@ class Prefs(
         storeAction(type.actionKey, action)
     }
 
+    fun getHardwareAction(
+        key: HardwareKey,
+        press: HardwareKeyPress,
+    ): Constants.Action = loadAction(key.actionKey(press), key.defaultAction(press))
+
+    fun setHardwareAction(
+        key: HardwareKey,
+        press: HardwareKeyPress,
+        action: Constants.Action,
+    ) {
+        storeAction(key.actionKey(press), action)
+    }
+
+    fun getHardwareApp(
+        key: HardwareKey,
+        press: HardwareKeyPress,
+    ): AppModel = loadApp(key.appKey(press))
+
+    fun setHardwareApp(
+        key: HardwareKey,
+        press: HardwareKeyPress,
+        appModel: AppModel,
+    ) {
+        storeApp(key.appKey(press), appModel)
+    }
+
     fun getSectionApp(type: StatusBarSectionType): AppModel = loadApp(type.appKey)
 
     fun setSectionApp(
@@ -622,6 +648,10 @@ class Prefs(
     var autoRotateEnabled: Boolean
         get() = prefs.getBoolean(AUTO_ROTATE_ENABLED, false)
         set(value) = prefs.edit().putBoolean(AUTO_ROTATE_ENABLED, value).apply()
+
+    var largeButtonMode: Boolean
+        get() = prefs.getBoolean("LARGE_BUTTON_MODE", false)
+        set(value) = prefs.edit().putBoolean("LARGE_BUTTON_MODE", value).apply()
 
     fun getHiddenAppKey(
         packageName: String,

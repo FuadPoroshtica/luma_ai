@@ -30,6 +30,9 @@ object Constants {
         SetStatusBarCellular,
         SetStatusBarTime,
         SetStatusBarBattery,
+        SetHardwareSingle,
+        SetHardwareDouble,
+        SetHardwareLong,
     }
 
     enum class Action(
@@ -47,6 +50,8 @@ object Constants {
         OpenAssistant(R.string.action_open_assistant),
         BrightnessUp(R.string.action_brightness_up),
         BrightnessDown(R.string.action_brightness_down),
+        OpenAiPrompt(R.string.action_open_ai_prompt),
+        OpenAiVoice(R.string.action_open_ai_voice),
         ;
 
         fun displayName(context: Context): String = context.getString(displayNameRes)

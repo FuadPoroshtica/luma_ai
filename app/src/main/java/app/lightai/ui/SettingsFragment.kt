@@ -61,6 +61,13 @@ class SettingsFragment : Fragment() {
                             requireActivity().recreate()
                         },
                     )
+                    PrefsToggleTextButton(
+                        title = stringResource(R.string.settings_large_buttons),
+                        initialValue = prefs.largeButtonMode,
+                        onValueChange = {
+                            prefs.largeButtonMode = it
+                        },
+                    )
                     SelectorButton(
                         label = stringResource(R.string.settings_invert_colours),
                         value =
@@ -79,6 +86,9 @@ class SettingsFragment : Fragment() {
                     ) { findNavController().navigate(R.id.action_settingsFragment_to_statusBarFragment) }
                     SimpleTextButton(stringResource(R.string.settings_gestures)) {
                         findNavController().navigate(R.id.action_settingsFragment_to_gesturesFragment)
+                    }
+                    SimpleTextButton(stringResource(R.string.settings_hardware_keys)) {
+                        findNavController().navigate(R.id.action_settingsFragment_to_hardwareKeysFragment)
                     }
                     SimpleTextButton(
                         stringResource(R.string.settings_notifications),

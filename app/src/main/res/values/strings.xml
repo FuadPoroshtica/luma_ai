@@ -43,6 +43,12 @@
     <string name="toast_no_assistant_installed">No assistant installed</string>
     <string name="toast_grant_write_settings">Brightness needs LightAI to be allowed to modify system settings</string>
 
+    <!-- AI prompt -->
+    <string name="action_open_ai_prompt">AI Prompt</string>
+    <string name="action_open_ai_voice">AI Voice</string>
+    <string name="settings_hardware_keys">Hardware buttons</string>
+    <string name="settings_large_buttons">Large home buttons</string>
+
     <!-- Gestures screen -->
 <string name="gesture_swipe_left">Swipe left</string>
     <string name="gesture_swipe_right">Swipe right</string>
@@ -168,4 +174,17 @@
     <string name="content_desc_clear">Clear</string>
     <string name="content_desc_hide">Hide</string>
     <string name="content_desc_app_info">App info</string>
+
+    <!-- Hardware buttons screen -->
+    <string name="hwkey_single_press">Single press</string>
+    <string name="hwkey_double_press">Double press</string>
+    <string name="hwkey_long_press">Long press</string>
+    <string name="hwkey_home_long_unavailable">Long-press HOME is intercepted by Android on the Light Phone III and cannot be customized without root.</string>
+
+    <!-- AI prompt overlay -->
+    <string name="ai_prompt_hint">Ask LightAI…</string>
+    <string name="ai_prompt_send">Send</string>
+    <string name="ai_prompt_voice">Voice</string>
+    <string name="ai_prompt_voice_hint">Speak your prompt</string>
+    <string name="ai_prompt_no_target">No AI app installed (install Claude or set a default assistant)</string>
 </resources>

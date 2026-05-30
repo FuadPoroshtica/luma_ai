@@ -82,7 +82,21 @@ class MainViewModel(
                 prefs.setSectionAction(StatusBarSectionType.BATTERY, Constants.Action.OpenApp)
                 prefs.setSectionApp(StatusBarSectionType.BATTERY, appModel)
             }
+
+            AppDrawerFlag.SetHardwareSingle -> setHardwareApp(n, app.lightai.data.HardwareKeyPress.Single, appModel)
+            AppDrawerFlag.SetHardwareDouble -> setHardwareApp(n, app.lightai.data.HardwareKeyPress.Double, appModel)
+            AppDrawerFlag.SetHardwareLong -> setHardwareApp(n, app.lightai.data.HardwareKeyPress.Long, appModel)
         }
+    }
+
+    private fun setHardwareApp(
+        keyOrdinal: Int,
+        press: app.lightai.data.HardwareKeyPress,
+        appModel: AppModel,
+    ) {
+        val key = app.lightai.data.HardwareKey.entries.getOrNull(keyOrdinal) ?: return
+        prefs.setHardwareAction(key, press, Constants.Action.OpenApp)
+        prefs.setHardwareApp(key, press, appModel)
     }
 
     private fun launchApp(appModel: AppModel) {
