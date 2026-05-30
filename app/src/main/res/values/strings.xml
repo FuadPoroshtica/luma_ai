@@ -187,4 +187,5 @@
     <string name="ai_prompt_voice">Voice</string>
     <string name="ai_prompt_voice_hint">Speak your prompt</string>
     <string name="ai_prompt_no_target">No AI app installed (install Claude or set a default assistant)</string>
+    <string name="toast_large_mode_overflow">Tip: large buttons look best with 3 or fewer apps per page</string>
 </resources>

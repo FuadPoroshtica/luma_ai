@@ -72,6 +72,7 @@ class HomeFragment :
     private var wifiNetworkCallback: ConnectivityManager.NetworkCallback? = null
     private var clockJob: Job? = null
     private var hardwareKeyJob: Job? = null
+    private var largeModeOverflowToastShown = false
     private var notificationDotView: TextView? = null
 
     private var _binding: FragmentHomeBinding? = null
@@ -1052,6 +1053,10 @@ class HomeFragment :
         }
 
     private fun updateAppCountForPage(appsCount: Int) {
+        if (prefs.largeButtonMode && appsCount > 3 && !largeModeOverflowToastShown) {
+            largeModeOverflowToastShown = true
+            showToast(requireContext(), getString(R.string.toast_large_mode_overflow))
+        }
         val currentAppCount = binding.homeAppsLayout.childCount
         val scale = if (prefs.largeButtonMode) LARGE_BUTTON_SCALE else 1.0f
         val baseTextSize = 41f

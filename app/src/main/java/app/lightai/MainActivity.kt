@@ -101,7 +101,41 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         setIntent(intent)
         handlePinShortcutRequest(intent)
+        detectHomeDoubleTap()
         backToHomeScreen()
+    }
+
+    // Fallback for HOME double-tap detection: PhoneWindowManager often intercepts
+    // KEYCODE_HOME before any accessibility service sees it, but the system still
+    // dispatches the HOME intent to us. Two HOME intents within 250ms = double-tap.
+    private var lastHomeIntentAt: Long = 0L
+
+    private fun detectHomeDoubleTap() {
+        val now = System.currentTimeMillis()
+        val delta = now - lastHomeIntentAt
+        lastHomeIntentAt = now
+        if (delta in 1..HOME_DOUBLE_TAP_WINDOW_MS) {
+            // Treat as double-press HOME — fire the user's configured Double action.
+            val prefs = Prefs.getInstance(this)
+            val action =
+                prefs.getHardwareAction(
+                    app.lightai.data.HardwareKey.HOME,
+                    app.lightai.data.HardwareKeyPress.Double,
+                )
+            if (action != Constants.Action.Disabled) {
+                lastHomeIntentAt = 0L
+                app.lightai.helper.HardwareKeyBus.emit(
+                    app.lightai.helper.HardwareKeyEvent(
+                        app.lightai.data.HardwareKey.HOME,
+                        app.lightai.data.HardwareKeyPress.Double,
+                    ),
+                )
+            }
+        }
+    }
+
+    companion object {
+        private const val HOME_DOUBLE_TAP_WINDOW_MS = 250L
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
