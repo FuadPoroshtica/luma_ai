@@ -146,6 +146,21 @@
         <argument
             android:name="keyOrdinal"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_hardwareKeyDetailFragment_to_hardwareKeyActionFragment"
+            app:destination="@id/hardwareKeyActionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hardwareKeyActionFragment"
+        android:name="app.lightai.ui.HardwareKeyActionFragment"
+        android:label="HardwareKeyActionFragment">
+        <argument
+            android:name="keyOrdinal"
+            app:argType="integer" />
+        <argument
+            android:name="press"
+            app:argType="string"
+            android:defaultValue="Single" />
     </fragment>
     <fragment
         android:id="@+id/aiPromptOverlayFragment"

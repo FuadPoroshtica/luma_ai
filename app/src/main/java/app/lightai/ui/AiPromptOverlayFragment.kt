@@ -128,13 +128,14 @@ class AiPromptOverlayFragment : Fragment() {
         context: Context,
         prompt: String,
     ): Boolean {
-        // OpenClaw doesn't declare an ACTION_SEND filter, but it does declare ACTION_ASSIST.
-        // Targeting the package directly avoids needing the user to set it as default assistant.
+        // OpenClaw exposes a custom intent action that takes a `prompt` extra
+        // directly — defined in their res/xml/shortcuts.xml capability.
+        // This is the cleanest deep-link path; the prompt lands pre-filled in chat.
         val intent =
-            Intent(Intent.ACTION_ASSIST).apply {
-                setPackage(OPENCLAW_PACKAGE)
+            Intent(OPENCLAW_ASK_ACTION).apply {
+                setClassName(OPENCLAW_PACKAGE, "$OPENCLAW_PACKAGE.MainActivity")
+                putExtra("prompt", prompt)
                 putExtra(Intent.EXTRA_TEXT, prompt)
-                putExtra("android.intent.extra.ASSIST_INPUT_HINT_KEYBOARD", prompt)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
         if (intent.resolveActivity(context.packageManager) == null) return false
@@ -211,5 +212,6 @@ class AiPromptOverlayFragment : Fragment() {
         const val MODE_VOICE = "voice"
         private const val CLAUDE_PACKAGE = "com.anthropic.claude"
         private const val OPENCLAW_PACKAGE = "ai.openclaw.app"
+        private const val OPENCLAW_ASK_ACTION = "ai.openclaw.app.action.ASK_OPENCLAW"
     }
 }

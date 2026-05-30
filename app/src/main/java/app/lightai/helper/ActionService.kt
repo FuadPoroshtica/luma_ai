@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.InputDevice
 import android.view.KeyEvent
 import android.view.accessibility.AccessibilityEvent
@@ -61,6 +62,7 @@ class ActionService : AccessibilityService() {
      */
     override fun onKeyEvent(event: KeyEvent): Boolean {
         val code = event.keyCode
+        Log.d(TAG, "onKeyEvent: code=$code action=${event.action} source=0x${event.source.toString(16)}")
 
         // Volume keys: never intercept
         if (code == KeyEvent.KEYCODE_VOLUME_UP ||
@@ -159,6 +161,7 @@ class ActionService : AccessibilityService() {
     }
 
     companion object {
+        private const val TAG = "LightAI-ActionSvc"
         private const val LONG_PRESS_MS = 500L
         private const val DOUBLE_TAP_WINDOW_MS = 250L
 

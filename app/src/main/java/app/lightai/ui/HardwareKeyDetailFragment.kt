@@ -133,13 +133,11 @@ class HardwareKeyDetailFragment : Fragment() {
             label = label,
             value = value,
             onClick = {
-                val viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-                viewModel.getAppList()
                 findNavController().navigate(
-                    R.id.appListFragment,
+                    R.id.hardwareKeyActionFragment,
                     bundleOf(
-                        "flag" to flagFor(press).toString(),
-                        "n" to hardwareKey.ordinal,
+                        HardwareKeyActionFragment.KEY_ORDINAL to hardwareKey.ordinal,
+                        HardwareKeyActionFragment.PRESS to press.name,
                     ),
                 )
             },
