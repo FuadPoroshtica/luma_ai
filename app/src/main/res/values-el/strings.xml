@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">Luma</string>
-    <string name="accessibility_service_name">Luma</string>
-    <string name="accessibility_service_description">Αυτή η υπηρεσία προσβασιμότητας επιτρέπει στο Luma να εκτελεί ορισμένες ενέργειες όπως το κλείδωμα της οθόνης ή το άνοιγμα των γρήγορων ρυθμίσεων.</string>
+    <string name="app_name">LumAI</string>
+    <string name="accessibility_service_name">LumAI</string>
+    <string name="accessibility_service_description">Αυτή η υπηρεσία προσβασιμότητας επιτρέπει στο LumAI να εκτελεί ορισμένες ενέργειες όπως το κλείδωμα της οθόνης ή το άνοιγμα των γρήγορων ρυθμίσεων.</string>
 
     <!-- Translations adapted from OlauncherCF (Greek) -->
 
     <!-- Settings screen -->
-    <string name="settings_title">Ρυθμίσεις Luma (%1$s)</string>
+    <string name="settings_title">Ρυθμίσεις LumAI (%1$s)</string>
     <string name="settings_invert_colours">Θέμα</string>
     <string name="settings_theme_dark">Σκούρο</string>
     <string name="settings_theme_light">Φωτεινό</string>

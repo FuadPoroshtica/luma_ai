@@ -1,29 +1,30 @@
-<img src="example.png" alt="Luma Screenshots">
+# LumAI
 
-<p>A minimal launcher for the Light Phone III.</p>
+A minimal AI-augmented launcher for the Light Phone III.
 
-![GitHub License](https://img.shields.io/github/license/vandamd/luma)
-![GitHub Release](https://img.shields.io/github/v/release/vandamd/luma)
+Forked from [Luma](https://github.com/vandamd/luma) (vandamd), which forked [OlauncherCF](https://github.com/OlauncherCF/OlauncherCF). See `NOTICE.md` for full attribution.
+
+![GitHub License](https://img.shields.io/github/license/FuadPoroshtica/luma_ai)
+![GitHub Release](https://img.shields.io/github/v/release/FuadPoroshtica/luma_ai)
 
 ## Installation
-The lastest .apk file is available in [releases](https://github.com/vandamd/luma/releases/latest).
 
-I recommend using [Obtainium](https://github.com/ImranR98/Obtainium) and adding the repository's URL to receive updates.
+The latest `.apk` file is available in [releases](https://github.com/FuadPoroshtica/luma_ai/releases/latest).
 
-## Features
-- Text-based home screen
-- Up to 5 pages with 1-6 apps each
-- Configurable swipe gestures + double-tap
-- Hide apps from drawer
-- Rename apps
-- Shortcut pinning (e.g. progressive web apps from Chrome). NOTE: Luma temporarily has to be set as the default launcher for the "Add to Home Screen" option in Chrome to work. Reverting back to LightOS is fine once a shortcut is added.
+I recommend using [Obtainium](https://github.com/ImranR98/Obtainium) and adding this repository's URL to receive updates.
 
-## Acknowledgements
-Huge thank you to the following projects:
-- Forked from: [OlauncherCF](https://github.com/OlauncherCF/OlauncherCF)
-- Inspired by: [InkOS](https://github.com/gezimos/inkOS)
+## Features (planned)
 
-## Support
-Luma is developed and maintained in my free time.
+- All of Luma's text-based home screen, app drawer, gestures, pages, shortcut pinning
+- **Built-in hardware-button remapping** with single / double / long-press detection — no separate Key Mapper required
+- **Large buttons home mode** that mimics the Light Phone III's native three-tile homescreen
+- **AI prompt action** that hands off text or voice prompts to the installed Claude Android app
+- LP3-aware defaults for the side buttons, optical wheel, and wheel-click
 
-If you find it useful, please [consider sponsoring](https://github.com/sponsors/vandamd)! :)
+## Status
+
+Early development. v0.1.0 is a clean rebrand of upstream Luma; functional features land in v0.2.0+.
+
+## License
+
+GPL v3 — same as upstream Luma. See `LICENSE`.

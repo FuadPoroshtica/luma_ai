@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">Luma</string>
-    <string name="accessibility_service_name">Luma</string>
-    <string name="accessibility_service_description">Tato služba usnadnění umožňuje aplikaci Luma provádět určité akce, jako je uzamčení obrazovky nebo otevření rychlého nastavení.</string>
+    <string name="app_name">LumAI</string>
+    <string name="accessibility_service_name">LumAI</string>
+    <string name="accessibility_service_description">Tato služba usnadnění umožňuje aplikaci LumAI provádět určité akce, jako je uzamčení obrazovky nebo otevření rychlého nastavení.</string>
 
     <!-- Translations adapted from OlauncherCF (Czech) -->
 
     <!-- Settings screen -->
-    <string name="settings_title">Nastavení Luma (%1$s)</string>
+    <string name="settings_title">Nastavení LumAI (%1$s)</string>
     <string name="settings_invert_colours">Motiv</string>
     <string name="settings_theme_dark">Tmavý</string>
     <string name="settings_theme_light">Světlý</string>

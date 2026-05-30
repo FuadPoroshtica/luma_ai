@@ -71,7 +71,7 @@
 
         </LinearLayout>
 
-        <app.luma.ui.BaselineFrameLayout
+        <app.lumai.ui.BaselineFrameLayout
             android:id="@+id/statusClockLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                 android:textSize="19.4sp"
                 android:textColor="?attr/primaryColor" />
 
-        </app.luma.ui.BaselineFrameLayout>
+        </app.lumai.ui.BaselineFrameLayout>
 
         <LinearLayout
             android:id="@+id/statusBatteryLayout"

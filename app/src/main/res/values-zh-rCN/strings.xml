@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">Luma</string>
-    <string name="accessibility_service_name">Luma</string>
-    <string name="accessibility_service_description">此无障碍服务允许 Luma 执行某些操作，例如锁定屏幕或打开快速设置。</string>
+    <string name="app_name">LumAI</string>
+    <string name="accessibility_service_name">LumAI</string>
+    <string name="accessibility_service_description">此无障碍服务允许 LumAI 执行某些操作，例如锁定屏幕或打开快速设置。</string>
 
     <!-- Translations adapted from OlauncherCF (Simplified Chinese) -->
 
     <!-- Settings screen -->
-    <string name="settings_title">Luma 设置 (%1$s)</string>
+    <string name="settings_title">LumAI 设置 (%1$s)</string>
     <string name="settings_invert_colours">主题</string>
     <string name="settings_theme_dark">深色</string>
     <string name="settings_theme_light">浅色</string>

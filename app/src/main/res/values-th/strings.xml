@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">Luma</string>
-    <string name="accessibility_service_name">Luma</string>
-    <string name="accessibility_service_description">บริการการเข้าถึงนี้ช่วยให้ Luma สามารถดำเนินการบางอย่าง เช่น ล็อกหน้าจอหรือเปิดการตั้งค่าด่วน</string>
+    <string name="app_name">LumAI</string>
+    <string name="accessibility_service_name">LumAI</string>
+    <string name="accessibility_service_description">บริการการเข้าถึงนี้ช่วยให้ LumAI สามารถดำเนินการบางอย่าง เช่น ล็อกหน้าจอหรือเปิดการตั้งค่าด่วน</string>
 
     <!-- Translations adapted from OlauncherCF (Thai) -->
 
     <!-- Settings screen -->
-    <string name="settings_title">การตั้งค่า Luma (%1$s)</string>
+    <string name="settings_title">การตั้งค่า LumAI (%1$s)</string>
     <string name="settings_invert_colours">ธีม</string>
     <string name="settings_theme_dark">มืด</string>
     <string name="settings_theme_light">สว่าง</string>

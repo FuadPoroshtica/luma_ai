@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">Luma</string>
-    <string name="accessibility_service_name">Luma</string>
-    <string name="accessibility_service_description">This accessibility service allows Luma to do certain actions such as locking the screen or opening the quick settings.</string>
+    <string name="app_name">LumAI</string>
+    <string name="accessibility_service_name">LumAI</string>
+    <string name="accessibility_service_description">This accessibility service allows LumAI to do certain actions such as locking the screen or opening the quick settings.</string>
 
     <!-- Settings screen -->
-    <string name="settings_title">Luma Settings (%1$s)</string>
+    <string name="settings_title">LumAI Settings (%1$s)</string>
     <string name="settings_invert_colours">Theme</string>
     <string name="settings_theme_dark">Dark</string>
     <string name="settings_theme_light">Light</string>

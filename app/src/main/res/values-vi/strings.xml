@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">Luma</string>
-    <string name="accessibility_service_name">Luma</string>
-    <string name="accessibility_service_description">Dịch vụ trợ năng này cho phép Luma thực hiện một số hành động nhất định như khóa màn hình hoặc mở cài đặt nhanh.</string>
+    <string name="app_name">LumAI</string>
+    <string name="accessibility_service_name">LumAI</string>
+    <string name="accessibility_service_description">Dịch vụ trợ năng này cho phép LumAI thực hiện một số hành động nhất định như khóa màn hình hoặc mở cài đặt nhanh.</string>
 
     <!-- Translations adapted from OlauncherCF (Vietnamese) -->
 
     <!-- Settings screen -->
-    <string name="settings_title">Cài đặt Luma (%1$s)</string>
+    <string name="settings_title">Cài đặt LumAI (%1$s)</string>
     <string name="settings_invert_colours">Chủ đề</string>
     <string name="settings_theme_dark">Tối</string>
     <string name="settings_theme_light">Sáng</string>

@@ -35,11 +35,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "app.luma"
+        applicationId "app.lumai"
         minSdk 31
         targetSdk 35
-        versionCode 45
-        versionName "v1.4.6"
+        versionCode 100
+        versionName "0.1.0"
     }
 
     buildFeatures {
@@ -68,7 +68,7 @@ android {
     lint {
         abortOnError = false
     }
-    namespace = 'app.luma'
+    namespace = 'app.lumai'
 }
 
 dependencies {

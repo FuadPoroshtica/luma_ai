@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">Luma</string>
-    <string name="accessibility_service_name">Luma</string>
-    <string name="accessibility_service_description">Este servicio de accesibilidad permite a Luma realizar ciertas acciones como bloquear la pantalla o abrir los ajustes rápidos.</string>
+    <string name="app_name">LumAI</string>
+    <string name="accessibility_service_name">LumAI</string>
+    <string name="accessibility_service_description">Este servicio de accesibilidad permite a LumAI realizar ciertas acciones como bloquear la pantalla o abrir los ajustes rápidos.</string>
 
     <!-- Translations adapted from OlauncherCF (Spanish) -->
 
     <!-- Settings screen -->
-    <string name="settings_title">Ajustes de Luma (%1$s)</string>
+    <string name="settings_title">Ajustes de LumAI (%1$s)</string>
     <string name="settings_invert_colours">Tema</string>
     <string name="settings_theme_dark">Oscuro</string>
     <string name="settings_theme_light">Claro</string>
