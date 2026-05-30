@@ -130,6 +130,7 @@ class HomeFragment :
         startConnectivityMonitors()
         startClock()
         startHardwareKeyListener()
+        startVolumeObserver()
     }
 
     override fun onPause() {
@@ -139,6 +140,7 @@ class HomeFragment :
         stopBatteryMonitor()
         stopConnectivityMonitors()
         stopHardwareKeyListener()
+        stopVolumeObserver()
     }
 
     private fun startHardwareKeyListener() {
@@ -965,6 +967,48 @@ class HomeFragment :
                 Toast.makeText(ctx, R.string.toast_openclaw_not_installed, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private val volumeHandler = android.os.Handler(android.os.Looper.getMainLooper())
+    private var volumeHudHideRunnable: Runnable? = null
+    private var volumeObserver: android.database.ContentObserver? = null
+
+    private fun showVolumeHud() {
+        val ctx = context ?: return
+        val audio = ctx.getSystemService(Context.AUDIO_SERVICE) as? android.media.AudioManager ?: return
+        val cur = audio.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
+        val max = audio.getStreamMaxVolume(android.media.AudioManager.STREAM_MUSIC)
+        binding.volumeHud.text = "Vol $cur / $max"
+        binding.volumeHud.visibility = View.VISIBLE
+        volumeHudHideRunnable?.let { volumeHandler.removeCallbacks(it) }
+        val hide = Runnable { binding.volumeHud.visibility = View.GONE }
+        volumeHudHideRunnable = hide
+        volumeHandler.postDelayed(hide, 1200)
+    }
+
+    private fun startVolumeObserver() {
+        val ctx = context ?: return
+        if (volumeObserver != null) return
+        val observer =
+            object : android.database.ContentObserver(volumeHandler) {
+                override fun onChange(selfChange: Boolean) {
+                    showVolumeHud()
+                }
+            }
+        volumeObserver = observer
+        ctx.contentResolver.registerContentObserver(
+            android.provider.Settings.System.CONTENT_URI,
+            true,
+            observer,
+        )
+    }
+
+    private fun stopVolumeObserver() {
+        val ctx = context ?: return
+        volumeObserver?.let { ctx.contentResolver.unregisterContentObserver(it) }
+        volumeObserver = null
+        volumeHudHideRunnable?.let { volumeHandler.removeCallbacks(it) }
+        volumeHudHideRunnable = null
     }
 
     private fun initToolRow() {

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Key event filtering removed in v0.7.7 — Key Mapper handles hardware
+     buttons more reliably and avoids the two-services-fighting-for-keys
+     problem. The service is still bound so we can perform global actions
+     (Back / Recents / Lock screen) from the rest of the app. -->
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
     android:accessibilityEventTypes="typeViewClicked"
     android:accessibilityFeedbackType="feedbackGeneric"
-    android:accessibilityFlags="flagDefault|flagRequestFilterKeyEvents"
-    android:canRequestFilterKeyEvents="true"
+    android:accessibilityFlags="flagDefault"
     android:canRetrieveWindowContent="true"
     android:description="@string/accessibility_service_description"
     android:notificationTimeout="100" />
