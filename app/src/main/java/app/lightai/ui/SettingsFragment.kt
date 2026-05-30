@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
@@ -95,6 +97,21 @@ class SettingsFragment : Fragment() {
                     ) {
                         findNavController().navigate(R.id.pairingFragment)
                     }
+                    if (app.lightai.data.SecurePrefs.getInstance(requireContext()).gatewayConnectConfig != null) {
+                        SimpleTextButton(
+                            title = gatewayConnectionLabel(),
+                        ) {
+                            val client = app.lightai.helper.GatewayClient.shared()
+                            val cfg = app.lightai.data.SecurePrefs.getInstance(requireContext()).gatewayConnectConfig
+                            if (cfg != null && client.status.value !=
+                                app.lightai.helper.GatewayClient.Status.Connected
+                            ) {
+                                client.connect(cfg)
+                            } else {
+                                client.disconnect()
+                            }
+                        }
+                    }
                     SelectorButton(
                         label = stringResource(R.string.settings_invert_colours),
                         value =
@@ -154,6 +171,22 @@ class SettingsFragment : Fragment() {
             android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES,
         ).orEmpty()
         return enabled.contains("app.lightai/")
+    }
+
+    @androidx.compose.runtime.Composable
+    private fun gatewayConnectionLabel(): String {
+        val status =
+            app.lightai.helper.GatewayClient.shared().status.collectAsState().value
+        val err = app.lightai.helper.GatewayClient.shared().lastError.collectAsState().value
+        return when (status) {
+            app.lightai.helper.GatewayClient.Status.Idle -> stringResource(R.string.gateway_connect_test)
+            app.lightai.helper.GatewayClient.Status.Connecting -> stringResource(R.string.gateway_status_connecting)
+            app.lightai.helper.GatewayClient.Status.ChallengeReceived -> stringResource(R.string.gateway_status_handshake)
+            app.lightai.helper.GatewayClient.Status.Connected -> stringResource(R.string.gateway_status_connected)
+            app.lightai.helper.GatewayClient.Status.Disconnected -> stringResource(R.string.gateway_connect_test)
+            app.lightai.helper.GatewayClient.Status.Error ->
+                stringResource(R.string.gateway_status_error, err.orEmpty())
+        }
     }
 
     @androidx.compose.runtime.Composable

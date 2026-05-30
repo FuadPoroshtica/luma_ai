@@ -225,4 +225,11 @@
     <string name="intent_action_ask_claw">Ask Claw (text)</string>
     <string name="intent_action_ask_claw_voice">Ask Claw (voice)</string>
     <string name="intent_action_open_claw">Open Claw</string>
+
+    <!-- Gateway WebSocket connection (v0.8.0) -->
+    <string name="gateway_connect_test">Connect to gateway</string>
+    <string name="gateway_status_connecting">Gateway: connecting…</string>
+    <string name="gateway_status_handshake">Gateway: handshake…</string>
+    <string name="gateway_status_connected">Gateway: connected (tap to disconnect)</string>
+    <string name="gateway_status_error">Gateway: error — %1$s</string>
 </resources>
