@@ -219,4 +219,5 @@
     <string name="tool_phone">Phone</string>
     <string name="tool_sms">SMS</string>
     <string name="tool_apps">Apps</string>
+    <string name="settings_a11y_off_banner">⚠ Hardware buttons disabled — tap to enable accessibility</string>
 </resources>

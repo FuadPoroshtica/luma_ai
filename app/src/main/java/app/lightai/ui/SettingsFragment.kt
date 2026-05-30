@@ -53,6 +53,13 @@ class SettingsFragment : Fragment() {
 
             ContentContainer {
                 CustomScrollView(verticalArrangement = Arrangement.spacedBy(33.5.dp)) {
+                    if (!isAccessibilityEnabled()) {
+                        SimpleTextButton(
+                            title = stringResource(R.string.settings_a11y_off_banner),
+                        ) {
+                            startActivity(android.content.Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                        }
+                    }
                     PrefsToggleTextButton(
                         title = stringResource(R.string.settings_auto_rotate),
                         initialValue = prefs.autoRotateEnabled,
@@ -139,6 +146,14 @@ class SettingsFragment : Fragment() {
             R.id.appListFragment,
             bundleOf("flag" to AppDrawerFlag.HiddenApps.toString()),
         )
+    }
+
+    private fun isAccessibilityEnabled(): Boolean {
+        val enabled = android.provider.Settings.Secure.getString(
+            requireContext().contentResolver,
+            android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES,
+        ).orEmpty()
+        return enabled.contains("app.lightai/")
     }
 
     @androidx.compose.runtime.Composable
