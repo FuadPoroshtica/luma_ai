@@ -76,6 +76,13 @@ class SettingsFragment : Fragment() {
                             requireActivity().recreate()
                         },
                     )
+                    PrefsToggleTextButton(
+                        title = stringResource(R.string.settings_tool_row),
+                        initialValue = prefs.toolRowEnabled,
+                        onValueChange = {
+                            prefs.toolRowEnabled = it
+                        },
+                    )
                     SimpleTextButton(
                         title = pairingLabel(),
                     ) {

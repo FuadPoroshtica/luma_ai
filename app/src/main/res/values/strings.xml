@@ -208,5 +208,15 @@
     <string name="pairing_success">Paired</string>
     <string name="pairing_enter_manually">Enter setup code manually</string>
     <string name="pairing_manual_coming_soon">Manual entry — coming in v0.7.5</string>
+    <string name="pairing_manual_title">Paste setup code</string>
+    <string name="pairing_manual_help">Paste the OpenClaw setup code from your gateway (the long base64 string).</string>
+    <string name="pairing_manual_hint">eyJ1cmwi…</string>
+    <string name="pairing_manual_submit">Pair</string>
     <string name="settings_unpair_gateway">Unpair gateway</string>
+
+    <!-- Home tool row -->
+    <string name="settings_tool_row">Bottom tool row (Phone / SMS / Apps)</string>
+    <string name="tool_phone">Phone</string>
+    <string name="tool_sms">SMS</string>
+    <string name="tool_apps">Apps</string>
 </resources>

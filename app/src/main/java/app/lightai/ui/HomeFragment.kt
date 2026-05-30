@@ -113,6 +113,7 @@ class HomeFragment :
         initPageNavigation()
         initSwipeTouchListener()
         initStatusBarClickListeners()
+        initToolRow()
         observeNotificationChanges()
     }
 
@@ -963,6 +964,30 @@ class HomeFragment :
             } else {
                 Toast.makeText(ctx, R.string.toast_openclaw_not_installed, Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun initToolRow() {
+        binding.toolRow.visibility = if (prefs.toolRowEnabled) View.VISIBLE else View.GONE
+        binding.toolRowPhone.setOnClickListener {
+            val intent =
+                Intent(Intent.ACTION_DIAL).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+            startActivity(intent)
+        }
+        binding.toolRowSms.setOnClickListener {
+            val intent =
+                Intent(Intent.ACTION_VIEW).apply {
+                    data = android.net.Uri.parse("sms:")
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+            try {
+                startActivity(intent)
+            } catch (_: Exception) {
+                Toast.makeText(requireContext(), R.string.toast_app_not_found, Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.toolRowApps.setOnClickListener {
+            showAppList(AppDrawerFlag.LaunchApp)
         }
     }
 

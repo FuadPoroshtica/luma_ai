@@ -168,4 +168,54 @@
             android:text="@string/tip_long_press" />
 
     </LinearLayout>
+
+    <!-- Tool row (LightOS-style fixed tiles at the bottom) -->
+    <LinearLayout
+        android:id="@+id/toolRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="20dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/toolRowPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="12dp"
+            android:textSize="18sp"
+            android:textColor="?attr/primaryColor"
+            android:fontFamily="@font/public_sans"
+            android:text="@string/tool_phone" />
+
+        <TextView
+            android:id="@+id/toolRowSms"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="12dp"
+            android:textSize="18sp"
+            android:textColor="?attr/primaryColor"
+            android:fontFamily="@font/public_sans"
+            android:text="@string/tool_sms" />
+
+        <TextView
+            android:id="@+id/toolRowApps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="12dp"
+            android:textSize="18sp"
+            android:textColor="?attr/primaryColor"
+            android:fontFamily="@font/public_sans"
+            android:text="@string/tool_apps" />
+
+    </LinearLayout>
 </FrameLayout>

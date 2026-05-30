@@ -61,8 +61,7 @@ class PairingFragment : Fragment() {
         cameraExecutor = Executors.newSingleThreadExecutor()
 
         binding.pairingManualButton.setOnClickListener {
-            // Manual entry deferred to a follow-up; for v0.7.0 just show a toast
-            Toast.makeText(requireContext(), R.string.pairing_manual_coming_soon, Toast.LENGTH_LONG).show()
+            showManualEntryDialog()
         }
 
         ensureCameraPermission()
@@ -129,6 +128,52 @@ class PairingFragment : Fragment() {
         super.onDestroyView()
         cameraExecutor.shutdown()
         _binding = null
+    }
+
+    private fun showManualEntryDialog() {
+        val context = requireContext()
+        val edit =
+            android.widget.EditText(context).apply {
+                hint = getString(R.string.pairing_manual_hint)
+                inputType = android.text.InputType.TYPE_CLASS_TEXT
+                setSingleLine(false)
+                maxLines = 4
+                // Prefill from clipboard if the user just copied a code
+                val cb = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager?
+                cb?.primaryClip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.text?.toString()?.let { clip ->
+                    val trimmed = clip.trim()
+                    if (trimmed.length in 16..512 && trimmed.all { it == '-' || it == '_' || it.isLetterOrDigit() || it == '=' || it == '{' || it == '}' || it == '"' || it == ':' || it == ',' }) {
+                        setText(trimmed)
+                    }
+                }
+                setPadding(48, 32, 48, 32)
+            }
+        androidx.appcompat.app.AlertDialog.Builder(context)
+            .setTitle(R.string.pairing_manual_title)
+            .setMessage(R.string.pairing_manual_help)
+            .setView(edit)
+            .setPositiveButton(R.string.pairing_manual_submit) { _, _ ->
+                onManualCode(edit.text?.toString().orEmpty())
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun onManualCode(raw: String) {
+        val setupCode = GatewaySetupCodeDecoder.resolveScannedPayload(raw)
+        if (setupCode == null) {
+            Toast.makeText(requireContext(), R.string.pairing_status_invalid, Toast.LENGTH_LONG).show()
+            return
+        }
+        val cfg = GatewaySetupCodeDecoder.resolveConnectConfig(setupCode)
+        if (cfg == null) {
+            Toast.makeText(requireContext(), R.string.pairing_status_invalid, Toast.LENGTH_LONG).show()
+            return
+        }
+        SecurePrefs.getInstance(requireContext()).gatewaySetupCode = setupCode
+        binding.pairingStatus.text = getString(R.string.pairing_status_paired, cfg.host)
+        Toast.makeText(requireContext(), R.string.pairing_success, Toast.LENGTH_SHORT).show()
+        findNavController().popBackStack()
     }
 
     private class QrAnalyzer(

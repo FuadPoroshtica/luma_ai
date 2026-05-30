@@ -657,6 +657,10 @@ class Prefs(
         get() = prefs.getBoolean("KIOSK_SCREEN_ENABLED", true)
         set(value) = prefs.edit().putBoolean("KIOSK_SCREEN_ENABLED", value).apply()
 
+    var toolRowEnabled: Boolean
+        get() = prefs.getBoolean("TOOL_ROW_ENABLED", true)
+        set(value) = prefs.edit().putBoolean("TOOL_ROW_ENABLED", value).apply()
+
     enum class AiTarget { Auto, ClaudeOnly, OpenClawOnly }
 
     var preferredAiTarget: AiTarget
