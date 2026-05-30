@@ -49,3 +49,7 @@
 
 # AndroidX Security (EncryptedSharedPreferences)
 -keep class androidx.security.crypto.** { *; }
+
+# BouncyCastle (Ed25519 device-identity signing) — uses reflection internals
+-keep class org.bouncycastle.** { *; }
+-dontwarn org.bouncycastle.**

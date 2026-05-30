@@ -39,8 +39,8 @@ android {
         applicationId "app.lightai"
         minSdk 31
         targetSdk 35
-        versionCode 802
-        versionName "0.8.2"
+        versionCode 803
+        versionName "0.8.3"
     }
 
     buildFeatures {
@@ -113,4 +113,6 @@ dependencies {
     implementation "androidx.camera:camera-view:$camerax_version"
     // ML Kit standalone barcode (no GMS dependency — packs models locally)
     implementation 'com.google.mlkit:barcode-scanning:17.3.0'
+    // BouncyCastle for Ed25519 device-identity signatures (OpenClaw gateway auth)
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
 }

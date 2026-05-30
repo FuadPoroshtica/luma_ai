@@ -1,8 +1,10 @@
 package app.lightai.helper
 
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import app.lightai.BuildConfig
+import app.lightai.data.DeviceIdentityStore
 import app.lightai.data.GatewayConnectConfig
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -69,11 +71,17 @@ class GatewayClient {
         )
     val incoming: SharedFlow<Frame> = _incoming.asSharedFlow()
 
-    fun connect(config: GatewayConnectConfig) {
+    private var appContext: Context? = null
+
+    fun connect(
+        context: Context,
+        config: GatewayConnectConfig,
+    ) {
         if (_status.value == Status.Connecting || _status.value == Status.Connected) {
             Log.d(TAG, "Already connecting/connected; ignoring connect()")
             return
         }
+        appContext = context.applicationContext
         lastConfig = config
         _lastError.value = null
         _status.value = Status.Connecting
@@ -200,15 +208,66 @@ class GatewayClient {
 
     private fun sendConnect() {
         val config = lastConfig ?: return
+        val ctx = appContext ?: return
         val n = nonce ?: return
         val id = UUID.randomUUID().toString()
         connectId = id
+
+        // Load/create the persistent Ed25519 device identity.
+        val store = DeviceIdentityStore.getInstance(ctx)
+        val identity = store.loadOrCreate()
+        val publicKeyB64Url = store.publicKeyBase64Url(identity)
+        val signedAtMs = System.currentTimeMillis()
+
+        // signatureToken = authToken ?? authBootstrapToken (per their selectConnectAuth)
+        val signatureToken =
+            if (config.token.isNotEmpty()) config.token else config.bootstrapToken
+
+        val role = "operator"
+        val scopesList = listOf("operator.read", "operator.write", "operator.approvals")
+        val clientId = "openclaw-android"
+        val clientMode = "ui"
+        val platform = "android"
+        val deviceFamily = "android"
+
+        // buildDeviceAuthPayloadV3 — pipe-delimited, platform & deviceFamily lowercase.
+        val payload =
+            listOf(
+                "v3",
+                identity.deviceId,
+                clientId,
+                clientMode,
+                role,
+                scopesList.joinToString(","),
+                signedAtMs.toString(),
+                signatureToken,
+                n,
+                platform,
+                deviceFamily,
+            ).joinToString("|")
+
+        val signature = store.signPayload(payload, identity)
+        if (signature == null || publicKeyB64Url == null) {
+            _lastError.value = "device sign failed"
+            _status.value = Status.Error
+            ws?.close(1008, "device sign failed")
+            return
+        }
 
         val authObj =
             buildJsonObject {
                 if (config.bootstrapToken.isNotEmpty()) put("bootstrapToken", config.bootstrapToken)
                 if (config.token.isNotEmpty()) put("token", config.token)
                 if (config.password.isNotEmpty()) put("password", config.password)
+            }
+
+        val deviceObj =
+            buildJsonObject {
+                put("id", identity.deviceId)
+                put("publicKey", publicKeyB64Url)
+                put("signature", signature)
+                put("signedAt", signedAtMs)
+                put("nonce", n)
             }
 
         val params =
@@ -218,29 +277,25 @@ class GatewayClient {
                 put(
                     "client",
                     buildJsonObject {
-                        // Must be one of GATEWAY_CLIENT_IDS from
-                        // packages/gateway-protocol/src/client-info.ts.
-                        // openclaw-android is the Android-app identity.
-                        put("id", "openclaw-android")
+                        put("id", clientId)
                         put("displayName", "LightAI")
                         put("version", BuildConfig.VERSION_NAME)
-                        put("platform", "android")
+                        put("platform", platform)
                         put("deviceFamily", "Android")
-                        put("mode", "ui")
+                        put("mode", clientMode)
                         put("instanceId", instanceId())
                     },
                 )
                 put("caps", buildJsonArray { })
                 put("auth", authObj)
-                put("role", "operator")
+                put("role", role)
                 put(
                     "scopes",
                     buildJsonArray {
-                        add(JsonPrimitive("operator.read"))
-                        add(JsonPrimitive("operator.write"))
-                        add(JsonPrimitive("operator.approvals"))
+                        for (s in scopesList) add(JsonPrimitive(s))
                     },
                 )
+                put("device", deviceObj)
             }
 
         val frame =

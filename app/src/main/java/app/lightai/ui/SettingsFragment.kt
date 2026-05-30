@@ -106,7 +106,7 @@ class SettingsFragment : Fragment() {
                             if (cfg != null && client.status.value !=
                                 app.lightai.helper.GatewayClient.Status.Connected
                             ) {
-                                client.connect(cfg)
+                                client.connect(requireContext(), cfg)
                             } else {
                                 client.disconnect()
                             }
