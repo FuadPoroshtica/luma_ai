@@ -90,6 +90,9 @@ class MainActivity : AppCompatActivity() {
         HomeCleanupHelper.setOnAppListCleanupCallback { viewModel.getAppList() }
 
         handlePinShortcutRequest(intent)
+
+        // Honor action intents fired by Key Mapper / Tasker / adb on cold start
+        handleActionIntent(intent)
     }
 
     override fun onDestroy() {
@@ -111,8 +114,47 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         setIntent(intent)
         handlePinShortcutRequest(intent)
+        if (handleActionIntent(intent)) return
         detectHomeDoubleTap()
         backToHomeScreen()
+    }
+
+    /**
+     * Handle our exposed action intents fired by Key Mapper / Tasker / adb.
+     * Returns true if the intent was consumed (so the caller can skip the
+     * normal back-to-home behavior).
+     */
+    private fun handleActionIntent(intent: Intent): Boolean {
+        when (intent.action) {
+            "app.lightai.action.OPEN_AI_PROMPT" -> {
+                navController.navigate(
+                    R.id.aiPromptOverlayFragment,
+                    Bundle().apply { putString("mode", "text") },
+                )
+                return true
+            }
+            "app.lightai.action.OPEN_AI_VOICE" -> {
+                navController.navigate(
+                    R.id.aiPromptOverlayFragment,
+                    Bundle().apply { putString("mode", "voice") },
+                )
+                return true
+            }
+            "app.lightai.action.OPEN_CLAW" -> {
+                val ask = Intent("ai.openclaw.app.action.ASK_OPENCLAW").apply {
+                    setClassName("ai.openclaw.app", "ai.openclaw.app.MainActivity")
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                if (ask.resolveActivity(packageManager) != null) {
+                    startActivity(ask)
+                } else {
+                    val launchIntent = packageManager.getLaunchIntentForPackage("ai.openclaw.app")
+                    launchIntent?.let { startActivity(it) }
+                }
+                return true
+            }
+        }
+        return false
     }
 
     // Fallback for HOME double-tap detection: PhoneWindowManager often intercepts

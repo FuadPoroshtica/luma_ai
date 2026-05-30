@@ -47,6 +47,55 @@
             </intent-filter>
         </activity>
 
+        <!-- Activity-aliases that expose LightAI actions as standalone intents
+             so external tools (Key Mapper, Tasker, Activity Launcher, adb)
+             can launch them directly. Each routes through MainActivity which
+             reads the action and navigates to the right destination. -->
+        <activity-alias
+            android:name="app.lightai.action.AskClaw"
+            android:exported="true"
+            android:label="@string/intent_action_ask_claw"
+            android:targetActivity="app.lightai.MainActivity">
+            <intent-filter>
+                <action android:name="app.lightai.action.OPEN_AI_PROMPT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name="app.lightai.action.AskClawVoice"
+            android:exported="true"
+            android:label="@string/intent_action_ask_claw_voice"
+            android:targetActivity="app.lightai.MainActivity">
+            <intent-filter>
+                <action android:name="app.lightai.action.OPEN_AI_VOICE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name="app.lightai.action.OpenClaw"
+            android:exported="true"
+            android:label="@string/intent_action_open_claw"
+            android:targetActivity="app.lightai.MainActivity">
+            <intent-filter>
+                <action android:name="app.lightai.action.OPEN_CLAW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
         <activity
             android:name="app.lightai.helper.FakeHomeActivity"
             android:enabled="false"

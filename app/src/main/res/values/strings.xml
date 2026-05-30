@@ -220,4 +220,9 @@
     <string name="tool_sms">SMS</string>
     <string name="tool_apps">Apps</string>
     <string name="settings_a11y_off_banner">⚠ Hardware buttons disabled — tap to enable accessibility</string>
+
+    <!-- Intent action labels (shown by Key Mapper / Activity Launcher when picking) -->
+    <string name="intent_action_ask_claw">Ask Claw (text)</string>
+    <string name="intent_action_ask_claw_voice">Ask Claw (voice)</string>
+    <string name="intent_action_open_claw">Open Claw</string>
 </resources>
