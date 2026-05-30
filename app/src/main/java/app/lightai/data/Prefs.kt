@@ -653,6 +653,16 @@ class Prefs(
         get() = prefs.getBoolean("LARGE_BUTTON_MODE", false)
         set(value) = prefs.edit().putBoolean("LARGE_BUTTON_MODE", value).apply()
 
+    var kioskScreenEnabled: Boolean
+        get() = prefs.getBoolean("KIOSK_SCREEN_ENABLED", true)
+        set(value) = prefs.edit().putBoolean("KIOSK_SCREEN_ENABLED", value).apply()
+
+    enum class AiTarget { Auto, ClaudeOnly, OpenClawOnly }
+
+    var preferredAiTarget: AiTarget
+        get() = enumPref("AI_TARGET", AiTarget.Auto)
+        set(value) = prefs.edit().putString("AI_TARGET", value.name).apply()
+
     fun getHiddenAppKey(
         packageName: String,
         userSerial: Long,

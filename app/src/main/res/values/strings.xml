@@ -190,4 +190,9 @@
     <string name="toast_large_mode_overflow">Tip: large buttons look best with 3 or fewer apps per page</string>
     <string name="action_open_claw">Open Claw</string>
     <string name="toast_openclaw_not_installed">OpenClaw is not installed</string>
+
+    <!-- Kiosk first screen -->
+    <string name="kiosk_ask_ai">Ask Claw</string>
+    <string name="kiosk_tap_to_open">Tap to open</string>
+    <string name="settings_kiosk_enabled">Lock-style first screen</string>
 </resources>

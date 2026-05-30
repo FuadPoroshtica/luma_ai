@@ -68,6 +68,14 @@ class SettingsFragment : Fragment() {
                             prefs.largeButtonMode = it
                         },
                     )
+                    PrefsToggleTextButton(
+                        title = stringResource(R.string.settings_kiosk_enabled),
+                        initialValue = prefs.kioskScreenEnabled,
+                        onValueChange = {
+                            prefs.kioskScreenEnabled = it
+                            requireActivity().recreate()
+                        },
+                    )
                     SelectorButton(
                         label = stringResource(R.string.settings_invert_colours),
                         value =

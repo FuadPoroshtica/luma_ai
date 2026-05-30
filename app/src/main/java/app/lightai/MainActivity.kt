@@ -55,6 +55,18 @@ class MainActivity : AppCompatActivity() {
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
+        // Dynamic start destination: if the user enabled the kiosk screen, that
+        // becomes the first surface; otherwise we land on home like before.
+        if (prefs.kioskScreenEnabled) {
+            try {
+                val graph = navController.navInflater.inflate(R.navigation.nav_graph)
+                graph.setStartDestination(R.id.kioskFragment)
+                navController.graph = graph
+            } catch (_: Exception) {
+            }
+        }
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             updateSystemStatusBarVisibility(destination.id)
         }
@@ -160,8 +172,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun backToHomeScreen() {
-        if (navController.currentDestination?.id != R.id.mainFragment) {
-            navController.popBackStack(R.id.mainFragment, false)
+        val target = if (prefs.kioskScreenEnabled) R.id.kioskFragment else R.id.mainFragment
+        if (navController.currentDestination?.id != target) {
+            navController.popBackStack(target, false)
         }
     }
 

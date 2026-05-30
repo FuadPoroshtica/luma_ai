@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/kioskRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/windowBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/kioskTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="120sp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:fontFamily="@font/public_sans"
+        android:includeFontPadding="false"
+        android:text="00:00"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/kioskDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/kioskDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="?android:attr/textColorSecondary"
+        android:fontFamily="@font/public_sans"
+        android:layout_marginTop="8dp"
+        android:text="Date"
+        app:layout_constraintTop_toBottomOf="@id/kioskTime"
+        app:layout_constraintBottom_toTopOf="@id/kioskAskButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/kioskAskButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:fontFamily="@font/public_sans"
+        android:layout_marginTop="48dp"
+        android:padding="20dp"
+        android:text="@string/kiosk_ask_ai"
+        app:layout_constraintTop_toBottomOf="@id/kioskDate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/kioskHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="?android:attr/textColorSecondary"
+        android:fontFamily="@font/public_sans"
+        android:alpha="0.6"
+        android:text="@string/kiosk_tap_to_open"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
