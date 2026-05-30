@@ -46,7 +46,7 @@ import app.lumai.data.Prefs
 import app.lumai.data.StatusBarSectionType
 import app.lumai.databinding.FragmentHomeBinding
 import app.lumai.helper.*
-import app.lumai.helper.LumaNotificationListener
+import app.lumai.helper.LumAINotificationListener
 import app.lumai.listener.SwipeTouchListener
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -292,8 +292,8 @@ class HomeFragment :
     private fun observeNotificationChanges() {
         viewLifecycleOwner.lifecycleScope.launch {
             var lastPackages: Set<String> = emptySet()
-            LumaNotificationListener.changeVersion.collect {
-                val current = LumaNotificationListener.getActiveNotificationPackages()
+            LumAINotificationListener.changeVersion.collect {
+                val current = LumAINotificationListener.getActiveNotificationPackages()
                 if (current != lastPackages) {
                     lastPackages = current
                     refreshAppNames()
@@ -976,7 +976,7 @@ class HomeFragment :
         val appName = if (appModel.appAlias.isNotEmpty()) appModel.appAlias else appModel.appLabel
         if (!prefs.showNotificationIndicator) return appName
 
-        val packagesWithNotifications = LumaNotificationListener.getActiveNotificationPackages()
+        val packagesWithNotifications = LumAINotificationListener.getActiveNotificationPackages()
         val hasNotification = packagesWithNotifications.contains(appModel.appPackage)
         return if (hasNotification) "$appName*" else appName
     }

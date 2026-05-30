@@ -9,20 +9,20 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import java.lang.ref.WeakReference
 
-class LumaNotificationListener : NotificationListenerService() {
+class LumAINotificationListener : NotificationListenerService() {
     companion object {
-        private var instance: WeakReference<LumaNotificationListener> = WeakReference(null)
+        private var instance: WeakReference<LumAINotificationListener> = WeakReference(null)
 
         private val _changeVersion = MutableStateFlow(0L)
         val changeVersion: StateFlow<Long> = _changeVersion.asStateFlow()
 
         @Suppress("DEPRECATION")
-        private fun StatusBarNotification.shouldFilter(svc: LumaNotificationListener): Boolean {
+        private fun StatusBarNotification.shouldFilter(svc: LumAINotificationListener): Boolean {
             if (notification.category == Notification.CATEGORY_TRANSPORT) return true
             return isLightOsKeepAlive(svc)
         }
 
-        private fun StatusBarNotification.isLightOsKeepAlive(svc: LumaNotificationListener): Boolean {
+        private fun StatusBarNotification.isLightOsKeepAlive(svc: LumAINotificationListener): Boolean {
             val text = notification.extras.getCharSequence(Notification.EXTRA_TEXT)?.toString()
             if (!text.isNullOrBlank()) return false
             val title = notification.extras.getString(Notification.EXTRA_TITLE)

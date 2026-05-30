@@ -175,7 +175,7 @@ suspend fun getAppsList(context: Context): MutableList<AppModel> =
             appList.addAll(pinnedModels.map { it.second })
             appList.addAll(unpinnedModels)
 
-            val packagesWithNotifications = LumaNotificationListener.getActiveNotificationPackages()
+            val packagesWithNotifications = LumAINotificationListener.getActiveNotificationPackages()
             appList.forEach { appModel ->
                 appModel.hasNotification = packagesWithNotifications.contains(appModel.appPackage)
             }

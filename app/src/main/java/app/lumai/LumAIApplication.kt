@@ -5,14 +5,14 @@ import android.content.pm.LauncherApps
 import android.os.UserHandle
 import app.lumai.helper.HomeCleanupHelper
 
-class LumaApplication : Application() {
+class LumAIApplication : Application() {
     private val launcherAppsCallback =
         object : LauncherApps.Callback() {
             override fun onPackageRemoved(
                 packageName: String,
                 user: UserHandle,
             ) {
-                HomeCleanupHelper.cleanupRemovedPackage(this@LumaApplication, packageName, user)
+                HomeCleanupHelper.cleanupRemovedPackage(this@LumAIApplication, packageName, user)
             }
 
             override fun onPackageAdded(

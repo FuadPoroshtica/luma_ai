@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import app.lumai.R
-import app.lumai.helper.LumaNotificationListener
+import app.lumai.helper.LumAINotificationListener
 import app.lumai.helper.performAppTapHapticFeedback
 import app.lumai.style.SettingsTheme
 import app.lumai.ui.compose.CustomScrollView
@@ -85,7 +85,7 @@ class NotificationListFragment : Fragment() {
     private fun loadNotifications(): List<NotificationItem> {
         val pm = requireContext().packageManager
         val nonOngoing =
-            LumaNotificationListener
+            LumAINotificationListener
                 .getActiveNotifications()
                 .filter { !it.isOngoing }
         val groupKeysWithChildren =
@@ -121,7 +121,7 @@ class NotificationListFragment : Fragment() {
     @Composable
     private fun NotificationListScreen() {
         val context = LocalContext.current
-        val version by LumaNotificationListener.changeVersion.collectAsState()
+        val version by LumAINotificationListener.changeVersion.collectAsState()
         val dismissedKeys = remember { mutableSetOf<String>() }
         val notifications = remember { mutableStateListOf<NotificationItem>() }
         LaunchedEffect(version) {
@@ -192,7 +192,7 @@ class NotificationListFragment : Fragment() {
                                 },
                                 onDismiss = {
                                     if (item.key.isNotEmpty()) {
-                                        LumaNotificationListener.dismissNotification(item.key)
+                                        LumAINotificationListener.dismissNotification(item.key)
                                     }
                                     dismissedKeys.add(item.key)
                                     notifications.remove(item)

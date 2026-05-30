@@ -23,7 +23,7 @@ import app.lumai.data.AppModel
 import app.lumai.data.Constants.AppDrawerFlag
 import app.lumai.data.Prefs
 import app.lumai.databinding.FragmentAppDrawerBinding
-import app.lumai.helper.LumaNotificationListener
+import app.lumai.helper.LumAINotificationListener
 import app.lumai.helper.performGestureActionHapticFeedback
 import app.lumai.style.SettingsTheme
 import app.lumai.style.isDarkTheme
@@ -103,8 +103,8 @@ class AppDrawerFragment : Fragment() {
         binding.recyclerView.addOnItemTouchListener(swipeBackTouchListener())
 
         viewLifecycleOwner.lifecycleScope.launch {
-            LumaNotificationListener.changeVersion.collect {
-                val packages = LumaNotificationListener.getActiveNotificationPackages()
+            LumAINotificationListener.changeVersion.collect {
+                val packages = LumAINotificationListener.getActiveNotificationPackages()
                 appAdapter.updateNotifications(packages)
             }
         }
@@ -148,7 +148,7 @@ class AppDrawerFragment : Fragment() {
         appAdapter: AppDrawerAdapter,
     ) {
         appAdapter.setAppList(apps.toMutableList())
-        appAdapter.updateNotifications(LumaNotificationListener.getActiveNotificationPackages())
+        appAdapter.updateNotifications(LumAINotificationListener.getActiveNotificationPackages())
     }
 
     private fun appClickListener(
