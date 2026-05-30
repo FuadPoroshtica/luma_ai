@@ -232,4 +232,5 @@
     <string name="gateway_status_handshake">Gateway: handshake…</string>
     <string name="gateway_status_connected">Gateway: connected (tap to disconnect)</string>
     <string name="gateway_status_error">Gateway: error — %1$s</string>
+    <string name="ai_prompt_thinking">Thinking…</string>
 </resources>

@@ -99,6 +99,53 @@ class GatewayClient {
         ws = client.newWebSocket(request, Listener())
     }
 
+    // === Chat surface (v0.9.0) ===
+
+    data class ChatChunk(
+        val runId: String,
+        val state: String, // delta / final / aborted / error
+        val text: String,
+    )
+
+    private val _chatStream =
+        MutableSharedFlow<ChatChunk>(
+            replay = 0,
+            extraBufferCapacity = 64,
+            onBufferOverflow = BufferOverflow.DROP_OLDEST,
+        )
+    val chatStream: SharedFlow<ChatChunk> = _chatStream.asSharedFlow()
+
+    /** Send a chat message. Returns the runId (idempotencyKey) we used. */
+    fun sendChat(
+        prompt: String,
+        sessionKey: String = "main",
+    ): String? {
+        if (_status.value != Status.Connected) {
+            Log.d(TAG, "sendChat ignored — gateway not connected (status=${_status.value})")
+            return null
+        }
+        val runId = UUID.randomUUID().toString()
+        val reqId = UUID.randomUUID().toString()
+        val params =
+            buildJsonObject {
+                put("sessionKey", sessionKey)
+                put("message", prompt)
+                put("thinking", false)
+                put("timeoutMs", 30_000)
+                put("idempotencyKey", runId)
+            }
+        val frame =
+            buildJsonObject {
+                put("type", "req")
+                put("id", reqId)
+                put("method", "chat.send")
+                put("params", params)
+            }.toString()
+        Log.d(TAG, ">> $frame")
+        ws?.send(frame)
+        return runId
+    }
+
     fun disconnect() {
         Log.d(TAG, "disconnect()")
         ws?.close(1000, "client disconnect")
@@ -176,18 +223,35 @@ class GatewayClient {
 
     private fun handleEventFrame(obj: JsonObject) {
         val event = obj.field("event") ?: return
-        if (event == "connect.challenge") {
-            val payload = (obj["payload"] as? JsonObject) ?: return
-            val n = payload.field("nonce")
-            if (n.isNullOrBlank()) {
-                _lastError.value = "challenge missing nonce"
-                _status.value = Status.Error
-                ws?.close(1008, "challenge missing nonce")
-                return
+        when (event) {
+            "connect.challenge" -> {
+                val payload = (obj["payload"] as? JsonObject) ?: return
+                val n = payload.field("nonce")
+                if (n.isNullOrBlank()) {
+                    _lastError.value = "challenge missing nonce"
+                    _status.value = Status.Error
+                    ws?.close(1008, "challenge missing nonce")
+                    return
+                }
+                nonce = n
+                _status.value = Status.ChallengeReceived
+                sendConnect()
             }
-            nonce = n
-            _status.value = Status.ChallengeReceived
-            sendConnect()
+
+            "chat" -> {
+                val payload = (obj["payload"] as? JsonObject) ?: return
+                val runId =
+                    payload.field("runId")
+                        ?: payload.field("idempotencyKey")
+                        ?: return
+                val state = payload.field("state") ?: "delta"
+                val text = payload.field("text").orEmpty()
+                _chatStream.tryEmit(ChatChunk(runId = runId, state = state, text = text))
+            }
+
+            else -> {
+                // tick / health / etc. — ignore for now
+            }
         }
     }
 

@@ -47,6 +47,19 @@
             android:imeOptions="actionSend|flagNoExtractUi"
             tools:ignore="Autofill,LabelFor" />
 
+        <TextView
+            android:id="@+id/aiPromptResponse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/public_sans"
+            android:textColor="?attr/primaryColor"
+            android:textSize="20sp"
+            android:lineSpacingExtra="4dp"
+            android:paddingVertical="12dp"
+            android:visibility="gone"
+            tools:text="(streaming response from gateway)"
+            tools:visibility="visible" />
+
         <View
             android:id="@+id/aiPromptDivider"
             android:layout_width="match_parent"

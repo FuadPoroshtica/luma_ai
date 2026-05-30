@@ -14,9 +14,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import app.lightai.R
 import app.lightai.databinding.FragmentAiPromptBinding
+import kotlinx.coroutines.launch
 
 class AiPromptOverlayFragment : Fragment() {
     private var _binding: FragmentAiPromptBinding? = null
@@ -87,11 +89,20 @@ class AiPromptOverlayFragment : Fragment() {
         _binding = null
     }
 
+    private var activeRunId: String? = null
+    private val chatBuffer = StringBuilder()
+
     private fun submit() {
         val prompt = binding.aiPromptInput.text?.toString()?.trim().orEmpty()
         if (prompt.isEmpty()) return
 
         val context = requireContext()
+        val gateway = app.lightai.helper.GatewayClient.shared()
+        if (gateway.status.value == app.lightai.helper.GatewayClient.Status.Connected) {
+            sendViaGateway(prompt)
+            return
+        }
+
         val dispatched =
             sendToClaude(context, prompt) ||
                 sendToOpenClaw(context, prompt) ||
@@ -102,6 +113,46 @@ class AiPromptOverlayFragment : Fragment() {
             findNavController().popBackStack()
         } else {
             Toast.makeText(context, R.string.ai_prompt_no_target, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun sendViaGateway(prompt: String) {
+        val gateway = app.lightai.helper.GatewayClient.shared()
+        val runId = gateway.sendChat(prompt) ?: return
+        activeRunId = runId
+        chatBuffer.clear()
+
+        // Switch overlay to streaming-response mode.
+        hideKeyboard()
+        binding.aiPromptInput.visibility = android.view.View.GONE
+        binding.aiPromptResponse.visibility = android.view.View.VISIBLE
+        binding.aiPromptResponse.text = getString(R.string.ai_prompt_thinking)
+        binding.aiPromptVoiceButton.visibility = android.view.View.GONE
+        binding.aiPromptSendButton.visibility = android.view.View.GONE
+        binding.aiPromptCancelButton.text = getString(R.string.app_drawer_cancel)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            gateway.chatStream.collect { chunk ->
+                if (chunk.runId != activeRunId) return@collect
+                when (chunk.state) {
+                    "delta" -> {
+                        chatBuffer.append(chunk.text)
+                        binding.aiPromptResponse.text = chatBuffer.toString()
+                    }
+                    "final" -> {
+                        if (chunk.text.isNotEmpty()) {
+                            binding.aiPromptResponse.text = chunk.text
+                        }
+                        binding.aiPromptCancelButton.text = getString(R.string.app_drawer_cancel)
+                    }
+                    "error", "aborted" -> {
+                        binding.aiPromptResponse.text =
+                            (if (chatBuffer.isEmpty()) "" else chatBuffer.toString() + "\n\n") +
+                                "[${chunk.state}]" +
+                                if (chunk.text.isNotEmpty()) " ${chunk.text}" else ""
+                    }
+                }
+            }
         }
     }
 
