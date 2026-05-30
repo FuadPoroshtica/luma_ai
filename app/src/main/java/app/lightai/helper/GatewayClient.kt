@@ -218,7 +218,10 @@ class GatewayClient {
                 put(
                     "client",
                     buildJsonObject {
-                        put("id", "lightai-android")
+                        // Must be one of GATEWAY_CLIENT_IDS from
+                        // packages/gateway-protocol/src/client-info.ts.
+                        // openclaw-android is the Android-app identity.
+                        put("id", "openclaw-android")
                         put("displayName", "LightAI")
                         put("version", BuildConfig.VERSION_NAME)
                         put("platform", "android")
