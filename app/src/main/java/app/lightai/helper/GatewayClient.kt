@@ -160,7 +160,7 @@ class GatewayClient {
         val obj = runCatching { json.parseToJsonElement(raw).jsonObject }.getOrNull() ?: return
         val type = obj.field("type")
         when (type) {
-            "evt" -> handleEventFrame(obj)
+            "event" -> handleEventFrame(obj)
             "res" -> handleResponseFrame(obj)
             else -> Log.d(TAG, "ignored frame type=$type")
         }
