@@ -172,6 +172,10 @@
             android:defaultValue="text" />
     </fragment>
     <fragment
+        android:id="@+id/pairingFragment"
+        android:name="app.lightai.ui.PairingFragment"
+        android:label="PairingFragment" />
+    <fragment
         android:id="@+id/themeModeFragment"
         android:name="app.lightai.ui.ThemeModeFragment"
         android:label="ThemeModeFragment" />

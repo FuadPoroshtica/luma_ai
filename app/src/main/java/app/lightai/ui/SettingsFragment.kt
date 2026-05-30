@@ -76,6 +76,11 @@ class SettingsFragment : Fragment() {
                             requireActivity().recreate()
                         },
                     )
+                    SimpleTextButton(
+                        title = pairingLabel(),
+                    ) {
+                        findNavController().navigate(R.id.pairingFragment)
+                    }
                     SelectorButton(
                         label = stringResource(R.string.settings_invert_colours),
                         value =
@@ -127,5 +132,16 @@ class SettingsFragment : Fragment() {
             R.id.appListFragment,
             bundleOf("flag" to AppDrawerFlag.HiddenApps.toString()),
         )
+    }
+
+    @androidx.compose.runtime.Composable
+    private fun pairingLabel(): String {
+        val secure = app.lightai.data.SecurePrefs.getInstance(requireContext())
+        val cfg = secure.gatewayConnectConfig
+        return if (cfg != null) {
+            stringResource(R.string.settings_gateway_paired, cfg.host)
+        } else {
+            stringResource(R.string.settings_pair_gateway)
+        }
     }
 }

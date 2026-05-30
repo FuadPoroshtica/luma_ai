@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
+apply plugin: 'org.jetbrains.kotlin.plugin.serialization'
 
 ktlint {
     version = "1.8.0"
@@ -38,8 +39,8 @@ android {
         applicationId "app.lightai"
         minSdk 31
         targetSdk 35
-        versionCode 504
-        versionName "0.5.4"
+        versionCode 700
+        versionName "0.7.0"
     }
 
     buildFeatures {
@@ -96,4 +97,20 @@ dependencies {
     implementation 'androidx.compose.ui:ui'
 
     implementation "androidx.constraintlayout:constraintlayout-compose:1.1.0"
+
+    // OpenClaw gateway integration (v0.7.0)
+    // Encrypted prefs for setup-code storage
+    implementation 'androidx.security:security-crypto:1.1.0-alpha07'
+    // OkHttp for HTTP/WebSocket against the OpenClaw gateway
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    // JSON for protocol messages
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3'
+    // CameraX for QR scanning preview
+    def camerax_version = '1.4.1'
+    implementation "androidx.camera:camera-core:$camerax_version"
+    implementation "androidx.camera:camera-camera2:$camerax_version"
+    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+    implementation "androidx.camera:camera-view:$camerax_version"
+    // ML Kit standalone barcode (no GMS dependency — packs models locally)
+    implementation 'com.google.mlkit:barcode-scanning:17.3.0'
 }

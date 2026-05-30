@@ -195,4 +195,18 @@
     <string name="kiosk_ask_ai">Ask Claw</string>
     <string name="kiosk_tap_to_open">Tap here to open</string>
     <string name="settings_kiosk_enabled">Lock-style first screen</string>
+
+    <!-- OpenClaw gateway pairing -->
+    <string name="settings_pair_gateway">Pair OpenClaw gateway</string>
+    <string name="settings_gateway_paired">Gateway paired (%1$s)</string>
+    <string name="settings_gateway_unpaired">Gateway not paired</string>
+    <string name="pairing_title">Pair OpenClaw</string>
+    <string name="pairing_status_scan">Aim the camera at your gateway QR code</string>
+    <string name="pairing_status_no_camera">Camera permission required</string>
+    <string name="pairing_status_invalid">QR code is not a valid OpenClaw setup code</string>
+    <string name="pairing_status_paired">Paired to %1$s</string>
+    <string name="pairing_success">Paired</string>
+    <string name="pairing_enter_manually">Enter setup code manually</string>
+    <string name="pairing_manual_coming_soon">Manual entry — coming in v0.7.5</string>
+    <string name="settings_unpair_gateway">Unpair gateway</string>
 </resources>
