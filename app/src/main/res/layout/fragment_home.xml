@@ -200,41 +200,35 @@
         android:background="?attr/primaryShadeDarkColor"
         android:visibility="gone">
 
-        <TextView
+        <ImageView
             android:id="@+id/toolRowPhone"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:padding="12dp"
-            android:textSize="18sp"
-            android:textColor="?attr/primaryColor"
-            android:fontFamily="@font/public_sans"
-            android:text="@string/tool_phone" />
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_tool_phone"
+            android:contentDescription="@string/tool_phone" />
 
-        <TextView
+        <ImageView
             android:id="@+id/toolRowSms"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:padding="12dp"
-            android:textSize="18sp"
-            android:textColor="?attr/primaryColor"
-            android:fontFamily="@font/public_sans"
-            android:text="@string/tool_sms" />
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_tool_sms"
+            android:contentDescription="@string/tool_sms" />
 
-        <TextView
+        <ImageView
             android:id="@+id/toolRowApps"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:padding="12dp"
-            android:textSize="18sp"
-            android:textColor="?attr/primaryColor"
-            android:fontFamily="@font/public_sans"
-            android:text="@string/tool_apps" />
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_tool_apps"
+            android:contentDescription="@string/tool_apps" />
 
     </LinearLayout>
 </FrameLayout>
