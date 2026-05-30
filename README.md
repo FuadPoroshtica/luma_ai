@@ -1,4 +1,4 @@
-# LumAI
+# LightAI
 
 A minimal AI-augmented launcher for the Light Phone III.
 

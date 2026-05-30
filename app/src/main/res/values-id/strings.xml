@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">LumAI</string>
-    <string name="accessibility_service_name">LumAI</string>
-    <string name="accessibility_service_description">Layanan aksesibilitas ini memungkinkan LumAI melakukan tindakan tertentu seperti mengunci layar atau membuka pengaturan cepat.</string>
+    <string name="app_name">LightAI</string>
+    <string name="accessibility_service_name">LightAI</string>
+    <string name="accessibility_service_description">Layanan aksesibilitas ini memungkinkan LightAI melakukan tindakan tertentu seperti mengunci layar atau membuka pengaturan cepat.</string>
 
     <!-- Translations adapted from OlauncherCF (Indonesian) -->
 
     <!-- Settings screen -->
-    <string name="settings_title">Pengaturan LumAI (%1$s)</string>
+    <string name="settings_title">Pengaturan LightAI (%1$s)</string>
     <string name="settings_invert_colours">Tema</string>
     <string name="settings_theme_dark">Gelap</string>
     <string name="settings_theme_light">Terang</string>

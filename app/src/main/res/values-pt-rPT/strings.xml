@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">LumAI</string>
-    <string name="accessibility_service_name">LumAI</string>
-    <string name="accessibility_service_description">Este serviço de acessibilidade permite que o LumAI execute determinadas ações como bloquear o ecrã ou abrir as definições rápidas.</string>
+    <string name="app_name">LightAI</string>
+    <string name="accessibility_service_name">LightAI</string>
+    <string name="accessibility_service_description">Este serviço de acessibilidade permite que o LightAI execute determinadas ações como bloquear o ecrã ou abrir as definições rápidas.</string>
 
     <!-- Translations adapted from OlauncherCF (Portuguese - Portugal) -->
 
     <!-- Settings screen -->
-    <string name="settings_title">Definições LumAI (%1$s)</string>
+    <string name="settings_title">Definições LightAI (%1$s)</string>
     <string name="settings_invert_colours">Tema</string>
     <string name="settings_theme_dark">Escuro</string>
     <string name="settings_theme_light">Claro</string>

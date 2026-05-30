@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">LumAI</string>
-    <string name="accessibility_service_name">LumAI</string>
-    <string name="accessibility_service_description">تسمح خدمة إمكانية الوصول هذه لـ LumAI بتنفيذ إجراءات معينة مثل قفل الشاشة أو فتح الإعدادات السريعة.</string>
+    <string name="app_name">LightAI</string>
+    <string name="accessibility_service_name">LightAI</string>
+    <string name="accessibility_service_description">تسمح خدمة إمكانية الوصول هذه لـ LightAI بتنفيذ إجراءات معينة مثل قفل الشاشة أو فتح الإعدادات السريعة.</string>
 
     <!-- Translations adapted from OlauncherCF (Arabic) -->
 
     <!-- Settings screen -->
-    <string name="settings_title">إعدادات LumAI (%1$s)</string>
+    <string name="settings_title">إعدادات LightAI (%1$s)</string>
     <string name="settings_invert_colours">المظهر</string>
     <string name="settings_theme_dark">داكن</string>
     <string name="settings_theme_light">فاتح</string>

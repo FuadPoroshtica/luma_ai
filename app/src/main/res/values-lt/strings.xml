@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">LumAI</string>
-    <string name="accessibility_service_name">LumAI</string>
-    <string name="accessibility_service_description">Ši pritaikymo neįgaliesiems paslauga leidžia „LumAI" atlikti tam tikrus veiksmus, pvz., užrakinti ekraną arba atidaryti sparčiuosius nustatymus.</string>
+    <string name="app_name">LightAI</string>
+    <string name="accessibility_service_name">LightAI</string>
+    <string name="accessibility_service_description">Ši pritaikymo neįgaliesiems paslauga leidžia „LightAI" atlikti tam tikrus veiksmus, pvz., užrakinti ekraną arba atidaryti sparčiuosius nustatymus.</string>
 
     <!-- Translations adapted from OlauncherCF (Lithuanian) -->
 
     <!-- Settings screen -->
-    <string name="settings_title">LumAI nustatymai (%1$s)</string>
+    <string name="settings_title">LightAI nustatymai (%1$s)</string>
     <string name="settings_invert_colours">Tema</string>
     <string name="settings_theme_dark">Tamsi</string>
     <string name="settings_theme_light">Šviesi</string>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">LumAI</string>
-    <string name="accessibility_service_name">LumAI</string>
-    <string name="accessibility_service_description">Ця служба спеціальних можливостей дозволяє LumAI виконувати певні дії, такі як блокування екрана або відкриття швидких налаштувань.</string>
+    <string name="app_name">LightAI</string>
+    <string name="accessibility_service_name">LightAI</string>
+    <string name="accessibility_service_description">Ця служба спеціальних можливостей дозволяє LightAI виконувати певні дії, такі як блокування екрана або відкриття швидких налаштувань.</string>
 
     <!-- Translations adapted from OlauncherCF (Ukrainian) -->
 
     <!-- Settings screen -->
-    <string name="settings_title">Налаштування LumAI (%1$s)</string>
+    <string name="settings_title">Налаштування LightAI (%1$s)</string>
     <string name="settings_invert_colours">Тема</string>
     <string name="settings_theme_dark">Темна</string>
     <string name="settings_theme_light">Світла</string>

@@ -35,11 +35,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "app.lumai"
+        applicationId "app.lightai"
         minSdk 31
         targetSdk 35
-        versionCode 101
-        versionName "0.1.1"
+        versionCode 200
+        versionName "0.2.0"
     }
 
     buildFeatures {
@@ -68,7 +68,7 @@ android {
     lint {
         abortOnError = false
     }
-    namespace = 'app.lumai'
+    namespace = 'app.lightai'
 }
 
 dependencies {

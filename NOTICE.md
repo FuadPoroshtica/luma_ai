@@ -1,15 +1,15 @@
-# LumAI — Notices
+# LightAI — Notices
 
-LumAI is a fork of **Luma** by [vandamd](https://github.com/vandamd).
+LightAI is a fork of **Luma** by [vandamd](https://github.com/vandamd).
 
 - Upstream: https://github.com/vandamd/luma
 - Forked from commit: `231bc69d9bdf77b96fe535c0de9f147117c9bac2` (v1.4.6, 2026-04-13)
 
 Luma is itself a fork of [OlauncherCF](https://github.com/OlauncherCF/OlauncherCF), inspired by [InkOS](https://github.com/gezimos/inkOS).
 
-Both LumAI and Luma are distributed under the **GNU General Public License v3.0** (see `LICENSE`).
+Both LightAI and Luma are distributed under the **GNU General Public License v3.0** (see `LICENSE`).
 
-## What LumAI adds vs. upstream Luma
+## What LightAI adds vs. upstream Luma
 
 - Built-in hardware-button remapping with single / double / long-press detection (no external Key Mapper needed)
 - "Large buttons" home mode for the Light Phone III's squarish display

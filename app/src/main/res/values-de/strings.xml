@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">LumAI</string>
-    <string name="accessibility_service_name">LumAI</string>
-    <string name="accessibility_service_description">Dieser Bedienungshilfe-Dienst ermöglicht LumAI bestimmte Aktionen wie das Sperren des Bildschirms oder das Öffnen der Schnelleinstellungen.</string>
+    <string name="app_name">LightAI</string>
+    <string name="accessibility_service_name">LightAI</string>
+    <string name="accessibility_service_description">Dieser Bedienungshilfe-Dienst ermöglicht LightAI bestimmte Aktionen wie das Sperren des Bildschirms oder das Öffnen der Schnelleinstellungen.</string>
 
     <!-- Translations adapted from OlauncherCF (German) -->
 
     <!-- Settings screen -->
-    <string name="settings_title">LumAI Einstellungen (%1$s)</string>
+    <string name="settings_title">LightAI Einstellungen (%1$s)</string>
     <string name="settings_invert_colours">Thema</string>
     <string name="settings_theme_dark">Dunkel</string>
     <string name="settings_theme_light">Hell</string>

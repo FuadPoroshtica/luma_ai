@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="app.lumai.ui.HomeFragment"
+        android:name="app.lightai.ui.HomeFragment"
         android:label="main_fragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -20,14 +20,14 @@
 
     <fragment
         android:id="@+id/appListFragment"
-        android:name="app.lumai.ui.AppDrawerFragment"
+        android:name="app.lightai.ui.AppDrawerFragment"
         android:label="app_list_fragment"
         tools:layout="@layout/fragment_app_drawer">
     </fragment>
 
 <fragment
         android:id="@+id/renameFragment"
-        android:name="app.lumai.ui.RenameFragment"
+        android:name="app.lightai.ui.RenameFragment"
         android:label="RenameFragment">
         <argument
             android:name="appPackage"
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/pagesFragment"
-        android:name="app.lumai.ui.PagesFragment"
+        android:name="app.lightai.ui.PagesFragment"
         android:label="PagesFragment">
         <action
             android:id="@+id/action_pagesFragment_to_pageCountFragment"
@@ -60,15 +60,15 @@
     </fragment>
     <fragment
         android:id="@+id/pageCountFragment"
-        android:name="app.lumai.ui.PageCountFragment"
+        android:name="app.lightai.ui.PageCountFragment"
         android:label="PageCountFragment" />
     <fragment
         android:id="@+id/pageIndicatorPositionFragment"
-        android:name="app.lumai.ui.PageIndicatorPositionFragment"
+        android:name="app.lightai.ui.PageIndicatorPositionFragment"
         android:label="PageIndicatorPositionFragment" />
     <fragment
         android:id="@+id/appCountFragment"
-        android:name="app.lumai.ui.AppCountFragment"
+        android:name="app.lightai.ui.AppCountFragment"
         android:label="AppCountFragment">
         <argument
             android:name="pageNumber"
@@ -76,12 +76,12 @@
     </fragment>
     <fragment
         android:id="@+id/gesturesFragment"
-        android:name="app.lumai.ui.GesturesFragment"
+        android:name="app.lightai.ui.GesturesFragment"
         android:label="GesturesFragment">
     </fragment>
     <fragment
         android:id="@+id/gestureActionFragment"
-        android:name="app.lumai.ui.GestureActionFragment"
+        android:name="app.lightai.ui.GestureActionFragment"
         android:label="GestureActionFragment">
         <argument
             android:name="gesture_type"
@@ -94,7 +94,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="app.lumai.ui.SettingsFragment"
+        android:name="app.lightai.ui.SettingsFragment"
         android:label="SettingsFragment">
         <action
             android:id="@+id/action_settingsFragment_to_themeModeFragment"
@@ -117,19 +117,19 @@
     </fragment>
     <fragment
         android:id="@+id/themeModeFragment"
-        android:name="app.lumai.ui.ThemeModeFragment"
+        android:name="app.lightai.ui.ThemeModeFragment"
         android:label="ThemeModeFragment" />
     <fragment
         android:id="@+id/hapticsFragment"
-        android:name="app.lumai.ui.HapticsFragment"
+        android:name="app.lightai.ui.HapticsFragment"
         android:label="HapticsFragment" />
     <fragment
         android:id="@+id/notificationsFragment"
-        android:name="app.lumai.ui.NotificationsFragment"
+        android:name="app.lightai.ui.NotificationsFragment"
         android:label="NotificationsFragment" />
     <fragment
         android:id="@+id/statusBarFragment"
-        android:name="app.lumai.ui.StatusBarFragment"
+        android:name="app.lightai.ui.StatusBarFragment"
         android:label="StatusBarFragment">
         <action
             android:id="@+id/action_statusBarFragment_to_statusBarModeFragment"
@@ -149,11 +149,11 @@
     </fragment>
     <fragment
         android:id="@+id/statusBarModeFragment"
-        android:name="app.lumai.ui.StatusBarModeFragment"
+        android:name="app.lightai.ui.StatusBarModeFragment"
         android:label="StatusBarModeFragment" />
     <fragment
         android:id="@+id/statusBarTimeFragment"
-        android:name="app.lumai.ui.StatusBarTimeFragment"
+        android:name="app.lightai.ui.StatusBarTimeFragment"
         android:label="StatusBarTimeFragment">
         <action
             android:id="@+id/action_statusBarTimeFragment_to_timeFormatFragment"
@@ -164,7 +164,7 @@
     </fragment>
     <fragment
         android:id="@+id/statusBarBatteryFragment"
-        android:name="app.lumai.ui.StatusBarBatteryFragment"
+        android:name="app.lightai.ui.StatusBarBatteryFragment"
         android:label="StatusBarBatteryFragment">
         <action
             android:id="@+id/action_statusBarBatteryFragment_to_gestureActionFragment"
@@ -172,7 +172,7 @@
     </fragment>
     <fragment
         android:id="@+id/statusBarConnectivityFragment"
-        android:name="app.lumai.ui.StatusBarConnectivityFragment"
+        android:name="app.lightai.ui.StatusBarConnectivityFragment"
         android:label="StatusBarConnectivityFragment">
         <action
             android:id="@+id/action_statusBarConnectivityFragment_to_gestureActionFragment"
@@ -180,7 +180,7 @@
     </fragment>
     <fragment
         android:id="@+id/statusBarNotificationIndicatorFragment"
-        android:name="app.lumai.ui.StatusBarNotificationIndicatorFragment"
+        android:name="app.lightai.ui.StatusBarNotificationIndicatorFragment"
         android:label="StatusBarNotificationIndicatorFragment">
         <action
             android:id="@+id/action_statusBarNotificationIndicatorFragment_to_notificationIndicatorSectionFragment"
@@ -191,23 +191,23 @@
     </fragment>
     <fragment
         android:id="@+id/notificationIndicatorSectionFragment"
-        android:name="app.lumai.ui.NotificationIndicatorSectionFragment"
+        android:name="app.lightai.ui.NotificationIndicatorSectionFragment"
         android:label="NotificationIndicatorSectionFragment" />
     <fragment
         android:id="@+id/notificationIndicatorAlignmentFragment"
-        android:name="app.lumai.ui.NotificationIndicatorAlignmentFragment"
+        android:name="app.lightai.ui.NotificationIndicatorAlignmentFragment"
         android:label="NotificationIndicatorAlignmentFragment" />
     <fragment
         android:id="@+id/timeFormatFragment"
-        android:name="app.lumai.ui.TimeFormatFragment"
+        android:name="app.lightai.ui.TimeFormatFragment"
         android:label="TimeFormatFragment" />
     <fragment
         android:id="@+id/notificationListFragment"
-        android:name="app.lumai.ui.NotificationListFragment"
+        android:name="app.lightai.ui.NotificationListFragment"
         android:label="NotificationListFragment" />
     <fragment
         android:id="@+id/appActionsFragment"
-        android:name="app.lumai.ui.AppActionsFragment"
+        android:name="app.lightai.ui.AppActionsFragment"
         android:label="AppActionsFragment">
         <argument
             android:name="appPackage"
@@ -238,7 +238,7 @@
     </fragment>
     <fragment
         android:id="@+id/confirmFragment"
-        android:name="app.lumai.ui.ConfirmFragment"
+        android:name="app.lightai.ui.ConfirmFragment"
         android:label="ConfirmFragment">
         <argument
             android:name="title"

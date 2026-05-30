@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App identity -->
-    <string name="app_name">LumAI</string>
-    <string name="accessibility_service_name">LumAI</string>
-    <string name="accessibility_service_description">This accessibility service allows LumAI to do certain actions such as locking the screen or opening the quick settings.</string>
+    <string name="app_name">LightAI</string>
+    <string name="accessibility_service_name">LightAI</string>
+    <string name="accessibility_service_description">This accessibility service allows LightAI to do certain actions such as locking the screen or opening the quick settings.</string>
 
     <!-- Settings screen -->
-    <string name="settings_title">LumAI Settings (%1$s)</string>
+    <string name="settings_title">LightAI Settings (%1$s)</string>
     <string name="settings_invert_colours">Theme</string>
     <string name="settings_theme_dark">Dark</string>
     <string name="settings_theme_light">Light</string>
@@ -29,6 +29,19 @@
     <string name="action_show_notification_list">Notifications</string>
     <string name="action_disabled">Disabled</string>
     <string name="action_open_app_name">Open %1$s</string>
+    <string name="action_go_back">Go Back</string>
+    <string name="action_open_assistant">Open Assistant</string>
+    <string name="action_brightness_up">Brightness Up</string>
+    <string name="action_brightness_down">Brightness Down</string>
+
+    <!-- Hardware key labels -->
+    <string name="hwkey_home">Home</string>
+    <string name="hwkey_camera">Side button (Camera)</string>
+    <string name="hwkey_focus">Side button (Focus)</string>
+    <string name="hwkey_wheel_click">Wheel click</string>
+    <string name="hwkey_wheel">Wheel rotate</string>
+    <string name="toast_no_assistant_installed">No assistant installed</string>
+    <string name="toast_grant_write_settings">Brightness needs LightAI to be allowed to modify system settings</string>
 
     <!-- Gestures screen -->
 <string name="gesture_swipe_left">Swipe left</string>
