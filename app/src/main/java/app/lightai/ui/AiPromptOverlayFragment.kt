@@ -92,7 +92,10 @@ class AiPromptOverlayFragment : Fragment() {
         if (prompt.isEmpty()) return
 
         val context = requireContext()
-        val dispatched = sendToClaude(context, prompt) || sendToAssistant(context, prompt)
+        val dispatched =
+            sendToClaude(context, prompt) ||
+                sendToOpenClaw(context, prompt) ||
+                sendToAssistant(context, prompt)
 
         if (dispatched) {
             hideKeyboard()
@@ -113,6 +116,28 @@ class AiPromptOverlayFragment : Fragment() {
                 putExtra(Intent.EXTRA_TEXT, prompt)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
+        return try {
+            context.startActivity(intent)
+            true
+        } catch (_: ActivityNotFoundException) {
+            false
+        }
+    }
+
+    private fun sendToOpenClaw(
+        context: Context,
+        prompt: String,
+    ): Boolean {
+        // OpenClaw doesn't declare an ACTION_SEND filter, but it does declare ACTION_ASSIST.
+        // Targeting the package directly avoids needing the user to set it as default assistant.
+        val intent =
+            Intent(Intent.ACTION_ASSIST).apply {
+                setPackage(OPENCLAW_PACKAGE)
+                putExtra(Intent.EXTRA_TEXT, prompt)
+                putExtra("android.intent.extra.ASSIST_INPUT_HINT_KEYBOARD", prompt)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+        if (intent.resolveActivity(context.packageManager) == null) return false
         return try {
             context.startActivity(intent)
             true
@@ -185,5 +210,6 @@ class AiPromptOverlayFragment : Fragment() {
         const val MODE_TEXT = "text"
         const val MODE_VOICE = "voice"
         private const val CLAUDE_PACKAGE = "com.anthropic.claude"
+        private const val OPENCLAW_PACKAGE = "ai.openclaw.app"
     }
 }

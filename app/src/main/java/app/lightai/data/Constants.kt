@@ -52,6 +52,7 @@ object Constants {
         BrightnessDown(R.string.action_brightness_down),
         OpenAiPrompt(R.string.action_open_ai_prompt),
         OpenAiVoice(R.string.action_open_ai_voice),
+        OpenClaw(R.string.action_open_claw),
         ;
 
         fun displayName(context: Context): String = context.getString(displayNameRes)

@@ -938,7 +938,31 @@ class HomeFragment :
 
             Action.OpenAiVoice -> navigateAiPrompt(voiceFirst = true)
 
+            Action.OpenClaw -> openClaw()
+
             Action.OpenApp, Action.Disabled -> {}
+        }
+    }
+
+    private fun openClaw() {
+        val ctx = requireContext()
+        val launchIntent = ctx.packageManager.getLaunchIntentForPackage("ai.openclaw.app")
+        if (launchIntent != null) {
+            launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            ctx.startActivity(launchIntent)
+        } else {
+            // Try ACTION_ASSIST as a fallback in case OpenClaw is installed but launcher
+            // intent isn't exposed (unusual but possible for some launchers).
+            val assist =
+                Intent(Intent.ACTION_ASSIST).apply {
+                    setPackage("ai.openclaw.app")
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+            if (assist.resolveActivity(ctx.packageManager) != null) {
+                ctx.startActivity(assist)
+            } else {
+                Toast.makeText(ctx, R.string.toast_openclaw_not_installed, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
