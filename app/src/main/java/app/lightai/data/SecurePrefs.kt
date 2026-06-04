@@ -32,8 +32,8 @@ class SecurePrefs private constructor(context: Context) {
     val gatewayConnectConfig: GatewayConnectConfig?
         get() = gatewaySetupCode?.let { GatewaySetupCodeDecoder.resolveConnectConfig(it) }
 
-    fun clear() {
-        prefs.edit().clear().apply()
+    fun clearGatewaySetupCode() {
+        prefs.edit().remove(KEY_SETUP_CODE).apply()
     }
 
     companion object {

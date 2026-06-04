@@ -108,15 +108,18 @@ class SettingsFragment : Fragment() {
                             ) {
                                 client.connect(requireContext(), cfg)
                             } else {
-                                client.disconnect()
+                                disconnectGateway()
                             }
                         }
                         SimpleTextButton(
                             title = stringResource(R.string.settings_unpair_gateway),
                         ) {
-                            app.lightai.helper.GatewayClient.shared().disconnect()
-                            app.lightai.data.SecurePrefs.getInstance(requireContext()).clear()
-                            requireActivity().recreate()
+                            val securePrefs = app.lightai.data.SecurePrefs.getInstance(requireContext())
+                            if (securePrefs.gatewayConnectConfig != null) {
+                                securePrefs.clearGatewaySetupCode()
+                                disconnectGateway()
+                                requireActivity().recreate()
+                            }
                         }
                     }
                     SelectorButton(
@@ -162,6 +165,10 @@ class SettingsFragment : Fragment() {
             val intent = Intent(Settings.ACTION_SETTINGS)
             startActivity(intent)
         }
+    }
+
+    private fun disconnectGateway() {
+        app.lightai.helper.GatewayClient.shared().disconnect()
     }
 
     private fun showHiddenApps() {
