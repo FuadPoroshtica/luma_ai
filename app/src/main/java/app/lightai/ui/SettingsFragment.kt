@@ -108,7 +108,17 @@ class SettingsFragment : Fragment() {
                             ) {
                                 client.connect(requireContext(), cfg)
                             } else {
-                                client.disconnect()
+                                disconnectGateway()
+                            }
+                        }
+                        SimpleTextButton(
+                            title = stringResource(R.string.settings_unpair_gateway),
+                        ) {
+                            val securePrefs = app.lightai.data.SecurePrefs.getInstance(requireContext())
+                            if (securePrefs.gatewayConnectConfig != null) {
+                                securePrefs.clearGatewaySetupCode()
+                                disconnectGateway()
+                                requireActivity().recreate()
                             }
                         }
                     }
@@ -157,6 +167,10 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    private fun disconnectGateway() {
+        app.lightai.helper.GatewayClient.shared().disconnect()
+    }
+
     private fun showHiddenApps() {
         viewModel.getHiddenApps()
         findNavController().navigate(
@@ -196,7 +210,7 @@ class SettingsFragment : Fragment() {
         return if (cfg != null) {
             stringResource(R.string.settings_gateway_paired, cfg.host)
         } else {
-            stringResource(R.string.settings_pair_gateway)
+            stringResource(R.string.settings_gateway_unpaired)
         }
     }
 }
