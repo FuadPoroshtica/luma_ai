@@ -111,6 +111,13 @@ class SettingsFragment : Fragment() {
                                 client.disconnect()
                             }
                         }
+                        SimpleTextButton(
+                            title = stringResource(R.string.settings_unpair_gateway),
+                        ) {
+                            app.lightai.helper.GatewayClient.shared().disconnect()
+                            app.lightai.data.SecurePrefs.getInstance(requireContext()).clear()
+                            requireActivity().recreate()
+                        }
                     }
                     SelectorButton(
                         label = stringResource(R.string.settings_invert_colours),
@@ -196,7 +203,7 @@ class SettingsFragment : Fragment() {
         return if (cfg != null) {
             stringResource(R.string.settings_gateway_paired, cfg.host)
         } else {
-            stringResource(R.string.settings_pair_gateway)
+            stringResource(R.string.settings_gateway_unpaired)
         }
     }
 }
